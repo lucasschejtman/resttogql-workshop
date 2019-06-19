@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import createStyles from '@material-ui/core/styles/createStyles';
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Amplify, { API, Auth } from 'aws-amplify';
-import { Link } from 'react-router-dom';
-import StockDetail from './StockDetail';
+import React, { Component } from "react";
+import createStyles from "@material-ui/core/styles/createStyles";
+import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import Amplify, { API, Auth } from "aws-amplify";
+import { Link } from "react-router-dom";
+import StockDetail from "./StockDetail";
 
-const API_NAME = 'companies';
+const API_NAME = "companies";
 
 Amplify.configure({
     Auth: {
@@ -24,70 +24,71 @@ Amplify.configure({
         endpoints: [
             {
                 name: API_NAME,
-                endpoint: process.env.REACT_APP_COMPANIES_API_ENDPOINT,
+                endpoint: process.env.REACT_APP_API_ENDPOINT,
                 region: process.env.REACT_APP_DEFAULT_REGION
             }
         ]
     }
 });
 
-const styles = (theme: any) => createStyles({
-    root: {
-        width: '100%',
-        marginTop: theme.spacing.unit * 3,
-        overflowX: 'auto',
-        fontSize: '1.5em'
-    },
-    table: {
-        minWidth: 700
-    }
-});
+const styles = (theme: any) =>
+    createStyles({
+        root: {
+            width: "100%",
+            marginTop: theme.spacing.unit * 3,
+            overflowX: "auto",
+            fontSize: "1.5em"
+        },
+        table: {
+            minWidth: 700
+        }
+    });
 
-type Row = { 
+type Row = {
     original: {
-        company_id : number 
-    } 
-}
+        company_id: number;
+    };
+};
 
 type Company = {
-    company_id: number,
-    company_name: string,
-    stock_name: string,
-    stock_value: number
-}
+    company_id: number;
+    company_name: string;
+    stock_name: string;
+    stock_value: number;
+};
 
 interface Props extends WithStyles<typeof styles> {}
 
 interface State {
-    itemData: Array<Company>,
-    authParams: { headers: { Authorization: string }, response: boolean }
+    itemData: Array<Company>;
+    authParams: { headers: { Authorization: string }; response: boolean };
 }
 
 class StockTable extends Component<Props, State> {
-    columns = []
+    columns = [];
 
     state = {
         itemData: [],
         authParams: { headers: { Authorization: "" }, response: false }
-    }
+    };
 
     constructor(props: Props) {
         super(props);
 
         this.buyStock = this.buyStock.bind(this);
-        this.renderStockDetail= this.renderStockDetail.bind(this);
+        this.renderStockDetail = this.renderStockDetail.bind(this);
     }
 
     async componentDidMount() {
         const session = await Auth.currentSession();
         this.setState({
             authParams: {
-                headers: { "Authorization": session.getIdToken().getJwtToken() },
+                headers: { Authorization: session.getIdToken().getJwtToken() },
                 response: true
             }
         });
 
-        const { data } = await API.get(API_NAME, '/company', this.state.authParams);
+        const { data } = await API.get(API_NAME, "/company", this.state.authParams);
         this.setState({ itemData: data.Items });
     }
 
@@ -100,12 +101,15 @@ class StockTable extends Component<Props, State> {
         return (
             <div style={{ padding: "20px" }}>
                 // @ts-ignore
-                <StockDetail authSettings={this.state.authParams} selectedCompany={row.original['company_id']} />
+                <StockDetail
+                    authSettings={this.state.authParams}
+                    selectedCompany={row.original["company_id"]}
+                />
             </div>
-        )
+        );
     }
 
-    renderTable(classes: Record<"root"|"table", string>, rows: Array<Company>) {
+    renderTable(classes: Record<"root" | "table", string>, rows: Array<Company>) {
         return (
             <Paper className={classes.root}>
                 <Table className={classes.table}>
@@ -115,7 +119,7 @@ class StockTable extends Component<Props, State> {
                             <TableCell>Name</TableCell>
                             <TableCell>Symbol</TableCell>
                             <TableCell>Value</TableCell>
-                            <TableCell></TableCell>
+                            <TableCell />
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -136,20 +140,16 @@ class StockTable extends Component<Props, State> {
                                         </Link>
                                     </TableCell>
                                 </TableRow>
-                            )
+                            );
                         })}
                     </TableBody>
                 </Table>
             </Paper>
-        )
+        );
     }
 
     render() {
-        return (
-            <div>
-                { this.renderTable(this.props.classes, this.state.itemData) }
-            </div>
-        )
+        return <div>{this.renderTable(this.props.classes, this.state.itemData)}</div>;
     }
 }
 
