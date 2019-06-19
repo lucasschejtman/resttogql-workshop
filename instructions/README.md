@@ -19,7 +19,7 @@ On Linux:
 
 #### Clone this repo:
 From wherever you checkout repos:
-`git clone #TODO`
+`git clone https://github.com/lucasschejtman/resttogql-workshop.git`
 
 #### Clone the theme submodule:
 
