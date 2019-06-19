@@ -1,15 +1,15 @@
 {
 	"name": "appsync-workshop",
 	"version": "1.0.0",
-	"homepage": "https://github.com/lucasschejtman/devlounge/tree/master/Q4-2018/appsync-workshop#readme",
+	"homepage": "https://github.com/lucasschejtman/resttogql-workshop/tree/master/instructions#readme",
 	"bugs": {
-		"url": "https://github.com/lucasschejtman/devlounge/tree/master/Q4-2018"
+		"url": "https://github.com/lucasschejtman/resttogql-workshop/tree/master/instructions"
 	},
 	"license": "ISC",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/lucasschejtman/devlounge.git"
+		"url": "git+https://github.com/lucasschejtman/resttogql-workshop.git"
 	},
 	"scripts": {
 		"test": "hugo server -w -v -DF --disableFastRender --enableGitInfo --bind=0.0.0.0",
