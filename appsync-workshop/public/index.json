@@ -1,0 +1,92 @@
+[
+{
+	"uri": "http://example.org/10_prerequisites/1_account.html",
+	"title": "Create an AWS account",
+	"tags": [],
+	"description": "",
+	"content": " Your account must have the ability to create new IAM roles and scope other IAM permissions.\n If you already have an AWS account, and have IAM Administrator access, you can skip this page.\n  If you don\u0026rsquo;t already have an AWS account with Administrator access: create one now\n Once you have an AWS account, ensure you are following the remaining workshop steps as an IAM user with administrator access to the AWS account: Create a new IAM user to use for the workshop\n Enter the user details:  Attach the AdministratorAccess IAM Policy:  Click to create the new user:  Take note of the login URL and save:   "
+},
+{
+	"uri": "http://example.org/30_part2_mutations/31_pre-reading.html",
+	"title": "Mutations Pre-Reading",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "http://example.org/20_part1_queries/21_pre-reading.html",
+	"title": "Queries Pre-Reading",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "http://example.org/",
+	"title": "REST to GraphQL Workshop",
+	"tags": [],
+	"description": "",
+	"content": " Migrate an existing applications RESTful API\u0026rsquo;s to GraphQL using AWS Amplify and AWS AppSync Welcome! In this workshop we will take an existing stock trading application written in React and AWS Amplify. We will convert its API from using REST ( Amazon API-Gateway )to using GraphQL ( AWS AppSync ). In doing so we will also realise and explore the benefits that GraphQL API's have over traditional RESTful API's "
+},
+{
+	"uri": "http://example.org/40_part3_subscriptions/41_pre-reading.html",
+	"title": "Subscriptions Pre-Reading",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "http://example.org/10_prerequisites.html",
+	"title": "Prerequisites",
+	"tags": [],
+	"description": "",
+	"content": " Prerequisites for the Workshop  Create an AWS account   Create a Cloud 9 Workspace   Installs \u0026amp; Configs   "
+},
+{
+	"uri": "http://example.org/10_prerequisites/10_workspace.html",
+	"title": "Create a Cloud 9 Workspace",
+	"tags": [],
+	"description": "",
+	"content": " AWS Cloud9 is a cloud-based integrated development environment (IDE) that lets you write, run, and debug your code with just a browser. It includes a code editor, debugger, and terminal. Cloud9 comes prepackaged with essential tools for popular programming languages, including JavaScript, Python, PHP, and more, so you don\u0026rsquo;t need to install files or configure your development machine to start new projects.\nThe Cloud9 workspace should be built by an IAM user with Administrator privileges, not the root account user. Please ensure you are logged in as an IAM user, not the root account user.\n Ad blockers, JavaScript disablers, and tracking blockers should be disabled for the cloud9 domain, otherwise connecting to the workspace might be impacted.\n Create a new environment  Go to the Cloud9 web console Select Create environment Name it workshop, and go to the Next step Select Create a new instance for environment (EC2) and pick t2.medium Leave all of the environment settings as they are, and go to the Next step Click Create environment  Clean up the layout When the environment comes up, customize the layout by closing the welcome tab and lower work area, and opening a new terminal tab in the main work area: Your workspace should now look like this: If you like this theme, you can choose it yourself by selecting View / Themes / Solarized / Solarized Dark in the Cloud9 workspace menu.\n"
+},
+{
+	"uri": "http://example.org/20_part1_queries.html",
+	"title": "Part 1 - Queries",
+	"tags": [],
+	"description": "",
+	"content": " Graph QL Queries  Queries Pre-Reading   "
+},
+{
+	"uri": "http://example.org/30_part2_mutations.html",
+	"title": "Part 2 - Mutations",
+	"tags": [],
+	"description": "",
+	"content": " Graph QL Mutations  Mutations Pre-Reading   "
+},
+{
+	"uri": "http://example.org/10_prerequisites/11_software.html",
+	"title": "Installs &amp; Configs",
+	"tags": [],
+	"description": "",
+	"content": " Before we begin coding, there are a few things we need to install, update, and configure in the Cloud9 environment.\nInstalling and updating In the Cloud9 terminal, run the following commands to install and update some software we\u0026rsquo;ll be using for this workshop:\n# Update the AWS CLI pip install --user --upgrade awscli # Install and use Node.js v8.10 (to match AWS Lambda) nvm install v8.11.0 nvm alias default v8.11.0 # Install the AWS Amplify CLI npm install -g @aws-amplify/cli These commands will take a few minutes to finish.\n Configuring a default region A best practice is to deploy your infrastructure close to your customers, let\u0026rsquo;s configure a default AWS region for this workshop : Northern Virginia (us-east-1) for North America or Ireland (eu-west-1) for Europe.\nCreate an AWS config file, run:\n cat \u0026lt;\u0026lt;END \u0026gt; ~/.aws/config [default] region=us-east-1 END  cat \u0026lt;\u0026lt;END \u0026gt; ~/.aws/config [default] region=eu-west-1 END  \nThe AWS Amplify CLI is a toolchain which includes a robust feature set for simplifying mobile and web application development. The step above took care of installing it, but we also need to configure it. It needs to know what region to work with, and it determines this by looking for the ~/.aws/config file. Cloud9 takes care of making sure we have valid Administrator credentials in the ~/.aws/credentials file, but it doesn\u0026rsquo;t create ~/.aws/config for us.\n "
+},
+{
+	"uri": "http://example.org/40_part3_subscriptions.html",
+	"title": "Part 3 - Subscriptions",
+	"tags": [],
+	"description": "",
+	"content": " Graph QL Subscriptions  Subscriptions Pre-Reading   "
+},
+{
+	"uri": "http://example.org/categories.html",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "http://example.org/tags.html",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]

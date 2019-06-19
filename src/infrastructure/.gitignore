@@ -1,0 +1,6 @@
+workshop/
+*.js
+*.d.ts
+node_modules
+.cdk.staging
+cdk.out

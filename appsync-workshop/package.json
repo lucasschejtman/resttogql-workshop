@@ -1,0 +1,25 @@
+{
+	"name": "appsync-workshop",
+	"version": "1.0.0",
+	"homepage": "https://github.com/lucasschejtman/devlounge/tree/master/Q4-2018/appsync-workshop#readme",
+	"bugs": {
+		"url": "https://github.com/lucasschejtman/devlounge/tree/master/Q4-2018"
+	},
+	"license": "ISC",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/lucasschejtman/devlounge.git"
+	},
+	"scripts": {
+		"test": "hugo server -w -v -DF --disableFastRender --enableGitInfo --bind=0.0.0.0",
+		"server": "hugo server -w -v --enableGitInfo --bind=0.0.0.0",
+		"build": "hugo -v"
+	},
+	"dependencies": {
+		"hugo-cli": "^0.7.0",
+		"hugo-lunr": "0.0.4",
+		"discharge": "^0.7.1",
+		"qs": "^6.5.2"
+	}
+}

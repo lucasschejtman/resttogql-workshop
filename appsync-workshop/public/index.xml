@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>REST to GraphQL Workshop on AppSync Workshop</title>
+    <link>http://example.org/</link>
+    <description>Recent content in REST to GraphQL Workshop on AppSync Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Create an AWS account</title>
+      <link>http://example.org/10_prerequisites/1_account.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/10_prerequisites/1_account.html</guid>
+      <description>Your account must have the ability to create new IAM roles and scope other IAM permissions.
+ If you already have an AWS account, and have IAM Administrator access, you can skip this page.
+  If you don&amp;rsquo;t already have an AWS account with Administrator access: create one now
+ Once you have an AWS account, ensure you are following the remaining workshop steps as an IAM user with administrator access to the AWS account: Create a new IAM user to use for the workshop</description>
+    </item>
+    
+    <item>
+      <title>Mutations Pre-Reading</title>
+      <link>http://example.org/30_part2_mutations/31_pre-reading.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/30_part2_mutations/31_pre-reading.html</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Queries Pre-Reading</title>
+      <link>http://example.org/20_part1_queries/21_pre-reading.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/20_part1_queries/21_pre-reading.html</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Subscriptions Pre-Reading</title>
+      <link>http://example.org/40_part3_subscriptions/41_pre-reading.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/40_part3_subscriptions/41_pre-reading.html</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Create a Cloud 9 Workspace</title>
+      <link>http://example.org/10_prerequisites/10_workspace.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/10_prerequisites/10_workspace.html</guid>
+      <description>AWS Cloud9 is a cloud-based integrated development environment (IDE) that lets you write, run, and debug your code with just a browser. It includes a code editor, debugger, and terminal. Cloud9 comes prepackaged with essential tools for popular programming languages, including JavaScript, Python, PHP, and more, so you don&amp;rsquo;t need to install files or configure your development machine to start new projects.
+The Cloud9 workspace should be built by an IAM user with Administrator privileges, not the root account user.</description>
+    </item>
+    
+    <item>
+      <title>Installs &amp; Configs</title>
+      <link>http://example.org/10_prerequisites/11_software.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/10_prerequisites/11_software.html</guid>
+      <description>Before we begin coding, there are a few things we need to install, update, and configure in the Cloud9 environment.
+Installing and updating In the Cloud9 terminal, run the following commands to install and update some software we&amp;rsquo;ll be using for this workshop:
+# Update the AWS CLI pip install --user --upgrade awscli # Install and use Node.js v8.10 (to match AWS Lambda) nvm install v8.11.0 nvm alias default v8.</description>
+    </item>
+    
+  </channel>
+</rss>

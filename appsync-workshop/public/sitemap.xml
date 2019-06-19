@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://example.org/10_prerequisites/1_account.html</loc>
+  </url>
+  
+  <url>
+    <loc>http://example.org/30_part2_mutations/31_pre-reading.html</loc>
+  </url>
+  
+  <url>
+    <loc>http://example.org/20_part1_queries/21_pre-reading.html</loc>
+  </url>
+  
+  <url>
+    <loc>http://example.org/</loc>
+  </url>
+  
+  <url>
+    <loc>http://example.org/40_part3_subscriptions/41_pre-reading.html</loc>
+  </url>
+  
+  <url>
+    <loc>http://example.org/10_prerequisites.html</loc>
+  </url>
+  
+  <url>
+    <loc>http://example.org/10_prerequisites/10_workspace.html</loc>
+  </url>
+  
+  <url>
+    <loc>http://example.org/20_part1_queries.html</loc>
+  </url>
+  
+  <url>
+    <loc>http://example.org/30_part2_mutations.html</loc>
+  </url>
+  
+  <url>
+    <loc>http://example.org/10_prerequisites/11_software.html</loc>
+  </url>
+  
+  <url>
+    <loc>http://example.org/40_part3_subscriptions.html</loc>
+  </url>
+  
+  <url>
+    <loc>http://example.org/categories.html</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags.html</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>
