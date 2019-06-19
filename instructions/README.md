@@ -1,4 +1,4 @@
-# AppSync Workshop
+s# AppSync Workshop
 AWS Workshop migrating an application with RESTful API's to use GraphQL API's with AWS Appsync and Amplify
 
 ## Viewing the Workshop
@@ -19,7 +19,7 @@ On Linux:
 
 #### Clone this repo:
 From wherever you checkout repos:
-`git clone #TODO`
+`git clone https://github.com/lucasschejtman/resttogql-workshop.git`
 
 #### Clone the theme submodule:
 
