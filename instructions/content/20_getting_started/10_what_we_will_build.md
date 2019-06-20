@@ -29,15 +29,11 @@ If we were to try and build scalable and highly-available systems to handle each
 
 * [Amazon Cognito](https://aws.amazon.com/cognito/), to handle user sign up authorization
 
-* [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (S3), to store and serve as many photos as our users care to upload, and to host the static assets for our app
-
 * [Amazon DynamoDB](https://aws.amazon.com/dynamodb/), to provide millisecond response times to API queries for album and photo data
 
 * [AWS AppSync](https://aws.amazon.com/appsync/), to host a GraphQL API for our front end
 
 * [AWS Lambda](https://aws.amazon.com/lambda/), to create photo thumbnails asynchronously in the cloud
-
-* [Amazon Rekognition](https://aws.amazon.com/rekognition/), to detect relevant labels for uploaded photos
 
 * [Amazon Elasticsearch Service](https://aws.amazon.com/elasticsearch-service/), to index and search our photos by their labels
 
