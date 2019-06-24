@@ -1,10 +1,10 @@
 +++
-title = "Part 3 - Subscriptions"
+title = "Part 2 - Mutations"
 weight = 20
 chapter = true
 +++
 
-# Graph QL Subscriptions
+# Graph QL Mutations
 
 {{% children showhidden="false" %}}
 
