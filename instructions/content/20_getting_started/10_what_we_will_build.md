@@ -17,7 +17,7 @@ In this workshop, we'll change an existing app that uses REST endpoints that are
 
 Here's a map of the services we'll use and how they'll all connect.
 
-![Serverless Photo Albums Architecture](/images/architecture.png)
+![Stocks Worshop Application](/images/architecture/Arch1.png)
 
 ### Our Tools
 
