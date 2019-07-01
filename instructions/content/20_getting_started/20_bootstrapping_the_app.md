@@ -9,7 +9,7 @@ Well get started by cloning the code repo of the existing application
 
 ```bash
 # clone the repo
-git clone https://github.com/lucasschejtman/devlounge
+git clone https://github.com/lucasschejtman/resttogql-workshop.git
 
 # change into the infrastructure folder
 cd resttogql-workshop/src/infrastructure/
@@ -30,7 +30,7 @@ npm run build
 #bootstrap the cdk
 #<accNum> = account to deploy into
 #<region> = region to deploy into i.e ap-southeast-1
-cdk bootstrap aws://<accNum>/<region> 
+cdk bootstrap
 
 # provision the application
 cdk deploy --require-approval "never"
@@ -54,7 +54,11 @@ Our client was built using the Amplify libraries and React with connection strin
 You can learn more about why we use ".env" in react apps at [https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables).
 {{% /notice %}}
 
-**Open the .env file under /web/src**
+Open the .env file 
+(find it under)
+~/environment/resttogql-workshop/src/web/.env
+
+
 {{% notice tip %}}
 If you cant see the file try the following to view hidden files: In the file browser, select the gear icon in the top right of the window
 ![viewing hidden files](/images/show_hidden_files.png)

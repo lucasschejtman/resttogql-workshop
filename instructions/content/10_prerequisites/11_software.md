@@ -30,7 +30,10 @@ These commands will take a few minutes to finish.
 
 A best practice is to deploy your infrastructure close to your customers, let's configure a default AWS region for this workshop : Northern Virginia (*us-east-1*) for North America or Ireland (*eu-west-1*) for Europe.
 
-**Create an AWS config file**, run:
+**Create an AWS config file**, run the following in the terminal :
+{{% notice info %}}
+Make sure the regions align, whatever region your running cloud9 in, choose that as your default.
+{{% /notice %}}
 
 {{% tabs %}}
 {{% tab "us-east-1" "North America" %}}
