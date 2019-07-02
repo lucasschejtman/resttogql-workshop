@@ -25,12 +25,17 @@ const compose = <T>(fn1: (a: T) => T, ...fns: Array<(a: T) => T>) =>
 
 export class RestToGqlInfrastructureStack extends cdk.Stack implements IRestToGqlStack {
     private _api: apigateway.RestApi;
+    private _region: string;
     private _esDomain: elasticsearch.CfnDomain;
     private _table: dynamodb.Table;
     private _functions: IRestToGqlFunctions;
     private _auth: cognito.CfnUserPool;
     private _appSync: appsync.CfnGraphQLApi;
     private _orchestration: stepfunctions.StateMachine;
+
+    get Region() {
+        return this._region;
+    }
 
     set API(val) {
         this._api = val;
@@ -90,6 +95,8 @@ export class RestToGqlInfrastructureStack extends cdk.Stack implements IRestToGq
 
     constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
+
+        this._region = scope.node.tryGetContext("aws:cdk:toolkit:default-region");
 
         const run = compose(
             RestToGqlOrchestration,

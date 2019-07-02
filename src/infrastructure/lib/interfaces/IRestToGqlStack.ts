@@ -8,6 +8,7 @@ import * as stepfunctions from "@aws-cdk/aws-stepfunctions";
 import IRestToGqlFunctions from "./IRestToGqlFunctions";
 
 export default interface IRestToGqlStack {
+    Region: string;
     API: apigateway.RestApi;
     ESDomain: elasticsearch.CfnDomain;
     Table: dynamodb.Table;

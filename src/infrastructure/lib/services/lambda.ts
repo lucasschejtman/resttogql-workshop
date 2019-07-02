@@ -27,7 +27,10 @@ const RestToGqlFunctions = (stack: IRestToGqlStack) => {
 
     const ddbToEs = fn("ddb-to-es", {
         role: fnRole,
-        environment: { ["ES_ENDPOINT"]: esEndpoint }
+        environment: {
+            ["REGION"]: stack.Region,
+            ["ES_ENDPOINT"]: esEndpoint
+        }
     });
 
     ddbToEs.addEventSource(
@@ -38,12 +41,18 @@ const RestToGqlFunctions = (stack: IRestToGqlStack) => {
 
     const esSetup = fn("es-setup", {
         role: fnRole,
-        environment: { ["ES_ENDPOINT"]: esEndpoint }
+        environment: {
+            ["REGION"]: stack.Region,
+            ["ES_ENDPOINT"]: esEndpoint
+        }
     });
 
     const esStockValue = fn("es-stock-value", {
         role: fnRole,
-        environment: { ["ES_ENDPOINT"]: esEndpoint }
+        environment: {
+            ["REGION"]: stack.Region,
+            ["ES_ENDPOINT"]: esEndpoint
+        }
     });
 
     const getCompany = fn("get-company", {
