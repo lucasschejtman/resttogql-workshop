@@ -18,7 +18,11 @@ cd resttogql-workshop/src/infrastructure/
 
 ### Deploying using the CDK
 
-Inside the infrastructure all the neccessary services have been defined in code.  We not need to run the CDK inside this folder and deploy the resultant cloud formation templates
+Inside the infrastructure all the neccessary services have been defined in code.  We not need to run the CDK inside this folder and deploy the resultant cloud formation templates.
+
+{{% notice tip %}}
+You can learn more about the cdk at [https://github.com/awslabs/aws-cdk](https://github.com/awslabs/aws-cdk).
+{{% /notice %}}
 
 ```bash
 # install modules
@@ -36,10 +40,11 @@ cdk bootstrap
 cdk deploy --require-approval "never"
 ```
 
-
-{{% notice tip %}}
-You can learn more about the cdk at [https://github.com/awslabs/aws-cdk](https://github.com/awslabs/aws-cdk).
+{{% notice warning %}}
+The cdk deploy task will take around 10-12 mins to provision all the services used by the app - please be patient.
 {{% /notice %}}
+
+
 
 ### Update Connection Strings
 Now we have our backend provisioned, we need to update the client application to point to our new backend.
