@@ -105,8 +105,41 @@ This is the screen that initially presents after login.
 
 **Areas of Interest**
 
+The call to the API to retrieve a list of companies
+
+```tsx
+async componentDidMount() {
+        const session = await Auth.currentSession();
+        this.setState({
+            authParams: {
+                headers: { Authorization: session.getIdToken().getJwtToken() },
+                response: true
+            }
+        });
+
+        const { data } = await API.get(API_NAME, "/company", this.state.authParams);
+        this.setState({ itemData: data.Items });
+    }
+
+```
+
+
+
+
 
 ### StockDetail.tsx 
 This is the screen that displays the detail of each stock, which includes history and the buy and sell actions
 
 **Areas of Interest**
+
+```tsx
+
+ async retrieveStock() {
+        const res = await API.get('companies', `/company/${this.state.id}/stock`, this.state.authParams);
+        const stockData = res.data.map((r: stockResponse) => ({ data: 'Today', price: Number(r._source.stockValue) }));
+        this.setState({ stockData });
+    }
+```
+
+Get the Current Stock price for the selected Company
+ ( this code is also called by the AutoRefresh Button)
