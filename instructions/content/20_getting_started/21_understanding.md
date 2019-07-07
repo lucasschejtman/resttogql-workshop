@@ -15,13 +15,42 @@ Amazon Cognito lets you add user sign-up, sign-in, and access control to your we
 {{% /notice %}}
 
 ### Creating a User
-The first thing we need to do is create a new user - go ahead and do that, the user can be verified using phone or email
+The first thing we need to do is create a new user - go ahead and do that by slecting 'create account', the user can be verified using phone or email.
 
-{{% notice info %}}
-If the verfication method isnt working for the user then simply use the cognito console, the user pool you need to go into to verify the user is called 'resttogql-userpool'
+{{% notice info %}} 
+If the verfication method is failing (email or phone verificatin message isnt delivered) then simply use the cognito console.{{% /notice %}}
+
+1. Login to AWS console
+2. Navigate to the Cognito service
+3. Select 'Manage User Pools'
+4. Select the 'resttogql-userpool'
+5. Select 'Users and Groups' -> click on the user you just created 
+6. Click 'Confirm User'
+
+{{% notice info %}} 
+You can now login with this user to the app - you can skip any further verfication flow dialogs
 {{% /notice %}}
 
+
 Once logged in you should be presented with the StocksTable page.  This page is a view that shows all the possible stocks and their most current value.
+
+{{% notice info %}} 
+If the Stocks Table is not populated, you will need to run the autopopulation setup step function, using the steps below  %}}
+{{% /notice %}}
+
+1. Login to AWS console
+2. Navigate to the Step Function service
+3. Select the function - name should start with 'StateMachine'
+4. Select 'Start Execution' and then 'Start Execution'
+5. Once execution is finished, Navigate back into your app and refresh the page
+
+{{% notice info %}} 
+You should now see a list of random stocks: 
+![StocksList](/images/StocksList.png)
+
+{{% /notice %}}
+
+
 
 If you click on a line in the table you should then be taken to a more detailed view of that stock over time.
 
