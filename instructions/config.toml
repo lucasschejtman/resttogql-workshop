@@ -1,4 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "https://www.appsyncworkshop.com/"
 languageCode = "en-us"
 defaultContentLanguage = "en"
 title = "AppSync Workshop"
@@ -18,11 +18,11 @@ disableAssetsBusting = false
 disableLanguageSwitchingButton = true
 disableShortcutsTitle=true
 
-[[menu.shortcuts]]
-name = "<i class='fab fa-twitter fa-lg'></i> @deekob"
-identifier = "tw"
-url = "https://twitter.com/intent/user?screen_name=gabehollombe"
-weight = 1
+# [[menu.shortcuts]]
+# name = "<i class='fab fa-twitter fa-lg'></i> @deekob"
+# identifier = "tw"
+# url = "https://twitter.com/intent/user?screen_name=gabehollombe"
+# weight = 1
 
 [outputs]
 home = [ "HTML", "AMP" ,"RSS", "JSON"]

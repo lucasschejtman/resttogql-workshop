@@ -61,9 +61,15 @@ Queries are how GraphQL retrieves data from the data sources its connected to.  
 
 We have 3 queries listed here :
 
-```json
-
+```tsx
+getCompany(id: Int!): Company
+listCompanies: [Company]
+stockHistogram(company_id: Int!, limit: Int!): [Stock]
 
 ```
+
+Each of these Queries are connected to a resolver which in turn connects to an underlying data source.  
+
+
 
 

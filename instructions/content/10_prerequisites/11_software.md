@@ -18,7 +18,7 @@ pip install --user --upgrade awscli
 nvm install v8.11.0
 nvm alias default v8.11.0
 
-# Install the AWS Amplify CLI
+# Install the AWS CDK 
 npm install -g aws-cdk@0.34.0
 ```
 
