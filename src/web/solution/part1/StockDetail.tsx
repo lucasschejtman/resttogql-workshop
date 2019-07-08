@@ -3,10 +3,18 @@ import { RouteComponentProps } from "react-router-dom";
 import createStyles from "@material-ui/core/styles/createStyles";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
-import { API, graphqlOperation, Auth } from "aws-amplify";
+
+// STEP 0 - BEGIN
+// Include the `graphqlOperation` method
+import Amplify, { API, Auth, graphqlOperation } from "aws-amplify";
+// STEP 0 - END
+
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Label } from "recharts";
 
+// STEP 1 - BEGIN
+// Include the AppSync queries
 import * as queries from "./graphql/queries.js";
+// STEP 1 - END
 
 import MediaCard from "./MediaCard";
 import StockActions from "./StockActions";
@@ -76,7 +84,7 @@ class StockDetail extends Component<Props, State> {
     }
 
     async componentDidMount() {
-        // Call Queries(GetComany && GetHistogram) to populate page
+        // Leave this auth code until we migrate our PUT requests to AppSync
         this.retrieveHistogram();
         const session = await Auth.currentSession();
         this.setState({
@@ -85,14 +93,21 @@ class StockDetail extends Component<Props, State> {
                 response: true
             }
         });
+
+        // STEP 2 - BEGIN
+        // Fetch the current company details with AppSync
         //@ts-ignore
         const { data } = await API.graphql(
             graphqlOperation(queries.GetCompany, { id: this.state.id })
         );
+        // STEP 2 - END
+
         this.setState({ company: data.getCompany });
     }
 
     async retrieveHistogram() {
+        // STEP 3 - BEGIN
+        // Fetch the stock histagram with AppSync
         //@ts-ignore
         const { data } = await API.graphql(
             graphqlOperation(queries.GetHistogram, {
@@ -100,7 +115,8 @@ class StockDetail extends Component<Props, State> {
                 limit: 10
             })
         );
-        console.log(data.stockHistogram);
+        // STEP 3 - END
+
         const stockData = data.stockHistogram.map((r: stockResponse) => ({
             date: "Today",
             price: Number(r.stock_value)

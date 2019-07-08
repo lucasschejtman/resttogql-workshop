@@ -8,11 +8,19 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
+
+// STEP 0 - BEGIN
+// Include the `graphqlOperation` method
 import Amplify, { API, Auth, graphqlOperation } from "aws-amplify";
+// STEP 0 - END
+
 import { Link } from "react-router-dom";
 import StockDetail from "./StockDetail";
-// 1 - Define the ListCompanies Query
+
+// STEP 1 - BEGIN
+// Include the AppSync queries
 import * as queries from "./graphql/queries.js";
+// STEP 1 - END
 
 const API_NAME = "companies";
 
@@ -30,12 +38,16 @@ Amplify.configure({
                 region: process.env.REACT_APP_DEFAULT_REGION
             }
         ],
+
+        // STEP 2 - BEGIN
+        // Update the Amplify configuration
         graphql_headers: async () => ({
             Authorization: (await Auth.currentSession()).getIdToken().getJwtToken()
         }),
         aws_appsync_region: process.env.REACT_APP_DEFAULT_REGION,
         aws_appsync_authenticationType: "AMAZON_COGNITO_USER_POOLS",
         aws_appsync_graphqlEndpoint: process.env.REACT_APP_APPSYNC_ENDPOINT
+        // STEP 2 - END
     }
 });
 
@@ -96,11 +108,13 @@ class StockTable extends Component<Props, State> {
             }
         });
 
-        // 3 - Add in call to AppSync GraphQL Endpoint
+        // STEP 3 - BEGIN
+        // Add in call to AppSync GraphQL Endpoint
         const apiData = await API.graphql(graphqlOperation(queries.ListCompanies));
+        // STEP 3 - END
+
         //@ts-ignore
         this.setState({ itemData: apiData.data.listCompanies });
-        // End 3
     }
 
     async buyStock(id: string) {

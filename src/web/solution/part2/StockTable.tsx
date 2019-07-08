@@ -9,9 +9,10 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Amplify, { API, Auth, graphqlOperation } from "aws-amplify";
+
 import { Link } from "react-router-dom";
 import StockDetail from "./StockDetail";
-// 1 - Define the ListCompanies Query
+
 import * as queries from "./graphql/queries.js";
 
 const API_NAME = "companies";
@@ -96,11 +97,9 @@ class StockTable extends Component<Props, State> {
             }
         });
 
-        // 3 - Add in call to AppSync GraphQL Endpoint
         const apiData = await API.graphql(graphqlOperation(queries.ListCompanies));
         //@ts-ignore
         this.setState({ itemData: apiData.data.listCompanies });
-        // End 3
     }
 
     async buyStock(id: string) {

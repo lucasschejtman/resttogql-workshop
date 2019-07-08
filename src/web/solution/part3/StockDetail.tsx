@@ -8,7 +8,11 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Label } from "re
 
 import * as queries from "./graphql/queries.js";
 import * as mutations from "./graphql/mutations.js";
+
+// STEP 0 - BEGIN
+// Include the AppSync subscriptions
 import * as subscriptions from "./graphql/subscriptions.js";
+// STEP 0 - END
 
 import MediaCard from "./MediaCard";
 import StockActions from "./StockActions";
@@ -41,7 +45,11 @@ interface State {
     };
     simulate: boolean;
     simulation: number;
+
+    // STEP 1 - BEGIN
+    // Add a new state property
     stockSubscription: {};
+    // STEP 1 - END
 }
 
 interface StyleProps extends WithStyles<typeof styles> {}
@@ -61,9 +69,13 @@ class StockDetail extends Component<Props, State> {
         company: { stock_value: 0, company_name: "", company_description: "" },
         simulate: false,
         simulation: 0,
+
+        // STEP 2 - BEGIN
+        // Implement the new state property
         stockSubscription: {
             unsubscribe: () => {}
         }
+        // STEP 2 - END
     };
 
     constructor(props: Props) {
@@ -76,15 +88,24 @@ class StockDetail extends Component<Props, State> {
         this.renderChart = this.renderChart.bind(this);
         this.retrieveHistogram = this.retrieveHistogram.bind(this);
         this.onSimulate = this.onSimulate.bind(this);
-        this.onStock = this.onStock.bind(this);
 
+        // STEP 2 - BEGIN
+        // Bind the function that will receive the subscription updates
+        this.onStock = this.onStock.bind(this);
+        // STEP 2 - END
+
+        // STEP 3 - BEGIN
+        // Initiate the AppSync subscription
         this.state.stockSubscription = API.graphql(graphqlOperation(subscriptions.SubscribeToStock))
             //@ts-ignore
             .subscribe({
                 next: this.onStock
             });
+        // STEP 3 - END
     }
 
+    // STEP 4 - BEGIN
+    // Implement the function that will receive the subscription updates
     async onStock({ value }: any) {
         console.log("On Stock change: ", value.data);
         const newComp = {
@@ -96,6 +117,7 @@ class StockDetail extends Component<Props, State> {
         });
         await this.retrieveHistogram();
     }
+    // STEP 4 - END
 
     async componentDidMount() {
         //@ts-ignore
@@ -113,7 +135,7 @@ class StockDetail extends Component<Props, State> {
                 limit: 10
             })
         );
-        //console.log(data.stockHistogram);
+
         const stockData = data.stockHistogram.map((r: stockResponse) => ({
             date: "Today",
             price: Number(r.stock_value)
@@ -122,7 +144,10 @@ class StockDetail extends Component<Props, State> {
     }
 
     componentWillUnmount() {
-        //this.state.stockSubscription.unsubscribe();
+        // STEP 5 - BEGIN
+        // Clean up the subscription connection when the component is no longer needed
+        this.state.stockSubscription.unsubscribe();
+        // STEP 5 - END
     }
 
     async onAction() {
