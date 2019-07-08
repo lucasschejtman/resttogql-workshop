@@ -71,5 +71,9 @@ stockHistogram(company_id: Int!, limit: Int!): [Stock]
 Each of these Queries are connected to a resolver which in turn connects to an underlying data source.  
 
 
+### Resolvers
+//TODO
+
+
 
 

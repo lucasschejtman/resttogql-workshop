@@ -44,8 +44,15 @@ query ListCompanies {
 
 Try changing the return values and executing the query again - this is where we begin to see the flexibility of GraphQL. The output will change based on the query - it should look like this.
 
-![Smalleer Query](/images/SmallerQuery.png)
+![Smaller Query](/images/SmallerQuery.png)
 
 
 ### Exploring the Docs
-Because GraphQL is strongly typed, the documents for it can be easily introspected and we can
+Because GraphQL is strongly typed, the documents for it can be easily introspected and we can explore the types inside our GraphQL schema.  We can do this in the AWS Console - you will notice a link called '< Docs' - if you click this you should see the following pop out
+
+![Document Explorer](/images/document_explorer.png)
+
+You can drill down into types and see what they can return -> have a play.
+
+### Running Queries on the client.
+Now we are familiar with our schema and 

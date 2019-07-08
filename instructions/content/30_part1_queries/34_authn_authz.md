@@ -1,7 +1,7 @@
 +++
 title = "Adding authN/Z to AppSync"
 chapter = false
-weight = 3
+weight = 4
 +++
 
 ### Goal
