@@ -7,7 +7,11 @@ import { API, graphqlOperation, Auth } from "aws-amplify";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Label } from "recharts";
 
 import * as queries from "./graphql/queries.js";
+
+// STEP 0 - BEGIN
+// Include the AppSync mutations
 import * as mutations from "./graphql/mutations.js";
+// Step 0 - END
 
 import MediaCard from "./MediaCard";
 import StockActions from "./StockActions";
@@ -77,15 +81,7 @@ class StockDetail extends Component<Props, State> {
     }
 
     async componentDidMount() {
-        // Call Queries(GetComany && GetHistogram) to populate page
         this.retrieveHistogram();
-        const session = await Auth.currentSession();
-        this.setState({
-            authParams: {
-                headers: { Authorization: session.getIdToken().getJwtToken() },
-                response: true
-            }
-        });
         //@ts-ignore
         const { data } = await API.graphql(
             graphqlOperation(queries.GetCompany, { id: this.state.id })
@@ -101,7 +97,7 @@ class StockDetail extends Component<Props, State> {
                 limit: 10
             })
         );
-        console.log(data.stockHistogram);
+
         const stockData = data.stockHistogram.map((r: stockResponse) => ({
             date: "Today",
             price: Number(r.stock_value)
@@ -130,12 +126,16 @@ class StockDetail extends Component<Props, State> {
     }
 
     async onAction() {
+        // STEP 2 - BEGIN
+        // Implement the buy stock functionality with an AppSync mutation
         //@ts-ignore
         const { data } = await API.graphql(
             graphqlOperation(mutations.UpdateCompanyStock, {
                 company_id: this.state.id
             })
         );
+        // STEP 2 - END
+
         const newComp = { ...this.state.company, stock_value: data.updateCompanyStock.stock_value };
         this.setState({
             company: newComp
