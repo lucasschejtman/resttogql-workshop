@@ -32,20 +32,28 @@ Amplify.configure({
         userPoolId: process.env.REACT_APP_COGNITO_POOL_ID,
         userPoolWebClientId: process.env.REACT_APP_COGNITO_POOL_CLIENT_ID
     },
-     graphql_headers: async () => ({
-       'Authorization': (await Auth.currentSession()).getIdToken().getJwtToken()
-     }),
-
-    aws_appsync_region: process.env.REACT_APP_AWS_DEFAULT_REGION,
-    aws_appsync_authenticationType: 'AMAZON_COGNITO_USER_POOLS',
-    aws_appsync_graphqlEndpoint: process.env.REACT_APP_APPSYNC_GRAPHQL_ENDPOINT
+    API: {
+        endpoints: [
+            {
+                name: API_NAME,
+                endpoint: process.env.REACT_APP_API_ENDPOINT,
+                region: process.env.REACT_APP_DEFAULT_REGION
+            }
+        ],
+        graphql_headers: async () => ({
+            Authorization: (await Auth.currentSession()).getIdToken().getJwtToken()
+        }),
+        aws_appsync_region: process.env.REACT_APP_DEFAULT_REGION,
+        aws_appsync_authenticationType: "AMAZON_COGNITO_USER_POOLS",
+        aws_appsync_graphqlEndpoint: process.env.REACT_APP_APPSYNC_ENDPOINT
+    }
 });
 ```
 
 * In Cloud 9 create a new folder under '/src/web/src/graphql/queries.js' We will store our queries in here.  Add this as an import to Stock Table
 
 ```tsx
-import * as queries from  './graphql/queries.js'
+import * as queries from  "./graphql/queries.js"
 ```
 
 * Change the call to list companies to use the GraphQL endpoint as opposed to the rest enpoint .  The code is in the ComponentDIDMount function - after the change this function should look like below
@@ -87,5 +95,10 @@ export const ListCompanies = `query ListCompanies {
     }
 }`;
 ```
+
+Now if you open up the application the initial loading screen while use the GraphAPI endpoint to load the list of companies.
+
+### Testing we are using GraphQL
+You can either open the developer console on your browser and see the request to AppSync - or edit the ListCompanies Query to return less data and see how the table is then rendered
 
 
