@@ -41,6 +41,26 @@ async componentDidMount() {
 
 ```
 
+* Add in the new queries to the queries.js file, so it looks like this 
+
+```tsx
+// Query that will return a Company given its ID
+export const GetCompany = `query GetCompany($id: Int!) {
+    getCompany(id: $id){
+        company_name
+        company_description
+        stock_value
+     }
+ }`;
+
+ // Query to retrieve the stock price history for a company
+export const GetHistogram = `query GetHistogram($company_id: Int!, $limit: Int!) {
+    stockHistogram(company_id: $company_id, limit: $limit) {
+             stock_value
+       }
+     }`;
+```
+
 * Update the retrieveStock function so that it loads returns the stockHistory query.
 
 

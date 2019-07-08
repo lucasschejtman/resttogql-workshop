@@ -34,4 +34,3 @@ Also notice that the UpdateStock mutation has a resolver assigned, designating w
 
 ![Mutation Resolvers](/images/updateStock_mutation.png)
 
-### Our Proposed Future state

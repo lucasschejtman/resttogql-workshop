@@ -9,49 +9,45 @@ The goal of this section is to change how the Detai page loads it displayed data
 
 
 ### Client Changes
-* Change the call to list companies to use the GraphQL endpoint as opposed to the rest enpoint .  The code is in the ComponentDIDMount function - after the change this function should look like below
+* In Cloud 9 create a new folder under '/src/web/src/graphql/mutations.js' We will store our queries in here.  Add this as an import to Stock Table
 
 ```tsx
-async componentDidMount() {
-    const session = await Auth.currentSession();
-        this.setState({
-            authParams: {
-                headers: { "Authorization": session.getIdToken().getJwtToken() },
-                response: true
-            }
-        });
-        
-    const apiData = await API.graphql(graphqlOperation(queries.ListCompanies));
+import * as mutations from  "./graphql/mutations.js"
+```
+
+* Change the call to update stock  to use the GraphQL endpoint as opposed to the rest enpoint .  The code is in the onAction() function - after the change this function should look like below
+
+
+```tsx
+ async onAction() {
         //@ts-ignore
-    this.setState({ itemData: apiData.data.listCompanies })
+        const { data } = await API.graphql(
+            graphqlOperation(mutations.UpdateCompanyStock, {
+                company_id: this.state.id
+            })
+        );
+        const newComp = { ...this.state.company, stock_value: data.updateCompanyStock.stock_value };
+        this.setState({
+            company: newComp
+        });
     }
-
 ```
 
-* Add graphQLOperation to our imports, this function is part of the amplify library and is the entry point for all AppSync calls. Your Amplify imports should now look like this.
+
+* Define our mutation - Open up the newly created mutations.js file and paste the following in.
+
 
 ```tsx
-import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify';
-```
-
-
-* Define our first Query - Open up the newly created queries.js file and paste the following in.
-
-```tsx
-// Query that will return a list of Companies
-export const ListCompanies = `query ListCompanies {
-    listCompanies { 
-        company_id 
-        company_name
-        stock_name
-        stock_value
-    }
+export const UpdateCompanyStock = `mutation UpdateCompanyStock($company_id: Int!) {
+  updateCompanyStock(company_id: $company_id) {
+    delta,
+    stock_value
+  }
 }`;
 ```
 
-Now if you open up the application the initial loading screen while use the GraphAPI endpoint to load the list of companies.
 
 ### Testing we are using GraphQL
-You can either open the developer console on your browser and see the request to AppSync - or edit the ListCompanies Query to return less data and see how the table is then rendered
+You can either open the developer console on your browser and see the request to AppSync - or edit the updateCompanyStock Query to return less data (value) and see how the page is then rendered
 
 
