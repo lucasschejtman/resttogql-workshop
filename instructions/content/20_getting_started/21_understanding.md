@@ -15,27 +15,27 @@ Amazon Cognito lets you add user sign-up, sign-in, and access control to your we
 {{% /notice %}}
 
 ### Creating a User
+
 The first thing we need to do is create a new user - go ahead and do that by slecting 'create account', the user can be verified using phone or email.
 
-{{% notice info %}} 
+{{% notice info %}}
 If the verfication method is failing (email or phone verificatin message isnt delivered) then simply use the cognito console.{{% /notice %}}
 
 1. Login to AWS console
 2. Navigate to the Cognito service
 3. Select 'Manage User Pools'
 4. Select the 'resttogql-userpool'
-5. Select 'Users and Groups' -> click on the user you just created 
+5. Select 'Users and Groups' -> click on the user you just created
 6. Click 'Confirm User'
 
-{{% notice info %}} 
+{{% notice info %}}
 You can now login with this user to the app - you can skip any further verfication flow dialogs
 {{% /notice %}}
 
+Once logged in you should be presented with the StocksTable page. This page is a view that shows all the possible stocks and their most current value.
 
-Once logged in you should be presented with the StocksTable page.  This page is a view that shows all the possible stocks and their most current value.
-
-{{% notice info %}} 
-If the Stocks Table is not populated, you will need to run the autopopulation setup step function, using the steps below  %}}
+{{% notice info %}}
+Before we're ready to go, you will need to finish the bootstrapping process by running the setup step function that was deployed with the same, using the steps below
 {{% /notice %}}
 
 1. Login to AWS console
@@ -44,13 +44,11 @@ If the Stocks Table is not populated, you will need to run the autopopulation se
 4. Select 'Start Execution' and then 'Start Execution'
 5. Once execution is finished, Navigate back into your app and refresh the page
 
-{{% notice info %}} 
-You should now see a list of random stocks: 
+{{% notice info %}}
+You should now see a list of random stocks:
 ![StocksList](/images/StocksList.png)
 
 {{% /notice %}}
-
-
 
 If you click on a line in the table you should then be taken to a more detailed view of that stock over time.
 
@@ -58,12 +56,12 @@ Go Ahead and start getting familiar with the app ( shouldn't take long :) )
 
 Next, we'll have a look at the classes of interest.
 
-### App 
+### App
+
 This is the entry point to the application.
 
-
-***withAuthenticator(HOC)***
-Now that we have our backend set up for managing registrations and sign-in, all we have done is use the _withAuthenticator_ [higher-order React component from AWS Amplify](https://aws-amplify.github.io/amplify-js/media/authentication_guide.html#using-components-in-react) to wrap our  _App_ component. This takes care of rendering a simple UI for letting users sign up, confirm their account, sign in, sign out, or reset their password.
+**_withAuthenticator(HOC)_**
+Now that we have our backend set up for managing registrations and sign-in, all we have done is use the _withAuthenticator_ [higher-order React component from AWS Amplify](https://aws-amplify.github.io/amplify-js/media/authentication_guide.html#using-components-in-react) to wrap our _App_ component. This takes care of rendering a simple UI for letting users sign up, confirm their account, sign in, sign out, or reset their password.
 
 ```tsx
 // src/App.tsx
@@ -94,13 +92,13 @@ export default withAuthenticator(App, false);
 
 -   Wrapped the App component using withAuthenticator
 
-
 {{% notice tip %}}
 If you want to learn more about the Amplify client JS libraries and the with Authenticator HOC( Higher Order Components ) see
 [Amplify Authentication](https://aws-amplify.github.io/docs/js/authentication)
 {{% /notice %}}
 
-### StockTable.tsx 
+### StockTable.tsx
+
 This is the screen that initially presents after login.
 
 **Areas of Interest**
@@ -123,11 +121,8 @@ async componentDidMount() {
 
 ```
 
+### StockDetail.tsx
 
-
-
-
-### StockDetail.tsx 
 This is the screen that displays the detail of each stock, which includes history and the buy and sell actions
 
 **Areas of Interest**
@@ -142,4 +137,4 @@ This is the screen that displays the detail of each stock, which includes histor
 ```
 
 Get the Current Stock price for the selected Company
- ( this code is also called by the AutoRefresh Button)
+( this code is also called by the AutoRefresh Button)
