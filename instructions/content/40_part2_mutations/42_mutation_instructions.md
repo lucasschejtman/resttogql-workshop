@@ -5,7 +5,7 @@ weight = 2
 +++
 
 ## Our Goal
-The goal of this section is to change how the Detai page loads it displayed data.   Currenly it is using the following RESTful endpoints /companies/{id}/stock .  We want to change this to use oue new GraphQL schema that we looked at in the last section.
+The goal of this section is to change how the Detail page loads it displayed data.   Currenly it is using the following RESTful endpoints /companies/{id}/stock .  We want to change this to use oue new GraphQL schema that we looked at in the last section.
 
 
 ### Client Changes
