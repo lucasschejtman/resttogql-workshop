@@ -55,4 +55,4 @@ Because GraphQL is strongly typed, the documents for it can be easily introspect
 You can drill down into types and see what they can return -> have a play.
 
 ### Running Queries on the client.
-Now we are familiar with our schema and 
+In the next section we will start calling the AppSync endpoint from our client using the Queries that we have been testing in the console. 

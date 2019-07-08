@@ -72,7 +72,69 @@ Each of these Queries are connected to a resolver which in turn connects to an u
 
 
 ### Resolvers
-//TODO
+Resolvers are the mechanisn that connects AppSync to the underlying datasources that your schema needs.  We can get access to the resolvers in the Schema screen (they are on the right hand side)
+
+Scroll down until you see the 3 resolvers that are attached to our three Queries. It should look like the capture below
+
+![Queries](/images/resolvers.png)
+
+Click into one of the resolvers to see how they work - lets choose the first one we will build out 'listCompanies' , click on EXISTING_API to look at our first resolver which is a resolver into APU_GATEWAY.
+
+Resolver have 3 parts 
+
+1. The Datasource
+2. The Request Mapping Template
+3. The Response Mapping Template
+
+#### The Data Source
+This defines what data source we are reaching into 
+
+{{% notice info %}}
+For more information on Data sources and how to attach to resolvers [https://docs.aws.amazon.com/appsync/latest/devguide/tutorial-http-resolvers.html](https://docs.aws.amazon.com/appsync/latest/devguide/tutorial-http-resolvers.html)
+{{% /notice %}}
+
+
+#### Mapping Templates
+Mapping templates are used to tranform the Request/Response that AppSync generates for the resolver into a format that the underlying data source of the resolver will under stand.  For AppSync these templates are written in Apache Velocity 
+[https://velocity.apache.org/](https://velocity.apache.org/)
+
+##### Request Template
+Looks like the one should below - it is mapping the request into the REST endpoint resource /company passing any params and AUTH_HEADERS in the original request through to the API.
+
+```vtl
+{
+    "version": "2018-05-29",
+    "method": "GET", 
+    "resourcePath": "/prod/company",
+    "params":{
+        "query":$util.toJson($ctx.args),
+        "headers": {
+            "Authorization": "$ctx.request.headers.Authorization"
+        }
+    }
+}
+
+```
+
+##### Response Template
+The response template is even simpler - it parses the response from the underlying datasource (API_GATEWAY) and puts it in an array of items
+
+```vtl
+$util.toJson(
+  $util.parseJson(
+  	$ctx.result.body
+  ).Items
+)
+```
+{{% notice info %}}
+For more information on Configuring resolvers [https://docs.aws.amazon.com/appsync/latest/devguide/configuring-resolvers.html](https://docs.aws.amazon.com/appsync/latest/devguide/configuring-resolvers.html)
+{{% /notice %}}
+
+
+
+
+
+
 
 
 
