@@ -16,10 +16,12 @@ Amazon Cognito lets you add user sign-up, sign-in, and access control to your we
 
 ### Creating a User
 
-The first thing we need to do is create a new user - go ahead and do that by slecting 'create account', the user can be verified using phone or email.
+The first thing we need to do is create a new user - go ahead and do that by selecting 'create account', the user can be verified using phone or email.
 
 {{% notice info %}}
-If the verfication method is failing (email or phone verificatin message isnt delivered) then simply use the cognito console.{{% /notice %}}
+User password needs 1 upper, a symbol and a min length of 8
+
+If the verfication method is failing (email or phone verificatin message isnt delivered) then simply use the cognito console. {{% /notice %}}
 
 1. Login to AWS console
 2. Navigate to the Cognito service
@@ -93,9 +95,14 @@ export default withAuthenticator(App, false);
 -   Wrapped the App component using withAuthenticator
 
 {{% notice tip %}}
-If you want to learn more about the Amplify client JS libraries and the with Authenticator HOC( Higher Order Components ) see
+If you want to learn more about the Amplify client JS libraries and the with Authenticator HOC (Higher Order Components) see
 [Amplify Authentication](https://aws-amplify.github.io/docs/js/authentication)
 {{% /notice %}}
+
+{{% notice tip %}}
+If you want to learn more about React Higher Order Components (HOC) see [Higher Order Components](
+ https://reactjs.org/docs/higher-order-components.html)
+ {{% /notice %}}
 
 ### StockTable.tsx
 

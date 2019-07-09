@@ -18,7 +18,7 @@ cd resttogql-workshop/src/infrastructure/
 
 ### Deploying using the CDK
 
-Inside the infrastructure all the neccessary services have been defined in code.  We not need to run the CDK inside this folder and deploy the resultant cloud formation templates.
+Inside the infrastructure all the neccessary services have been defined in code.  We now need to run the CDK inside this folder and deploy the resultant CloudFormation templates.
 
 {{% notice tip %}}
 You can learn more about the cdk at [https://github.com/awslabs/aws-cdk](https://github.com/awslabs/aws-cdk).
