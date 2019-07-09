@@ -1,10 +1,10 @@
 // Scrollbar Width function
 function getScrollBarWidth() {
-    var inner = document.createElement('p');
+    var inner = document.createElement("p");
     inner.style.width = "100%";
     inner.style.height = "200px";
 
-    var outer = document.createElement('div');
+    var outer = document.createElement("div");
     outer.style.position = "absolute";
     outer.style.top = "0px";
     outer.style.left = "0px";
@@ -16,32 +16,32 @@ function getScrollBarWidth() {
 
     document.body.appendChild(outer);
     var w1 = inner.offsetWidth;
-    outer.style.overflow = 'scroll';
+    outer.style.overflow = "scroll";
     var w2 = inner.offsetWidth;
     if (w1 == w2) w2 = outer.clientWidth;
 
     document.body.removeChild(outer);
 
-    return (w1 - w2);
-};
+    return w1 - w2;
+}
 
 function setMenuHeight() {
-    $('#sidebar .highlightable').height($('#sidebar').innerHeight() - $('#header-wrapper').height() - 40);
-    $('#sidebar .highlightable').perfectScrollbar('update');
+    $("#sidebar .highlightable").height(
+        $("#sidebar").innerHeight() - $("#header-wrapper").height() - 40
+    );
+    $("#sidebar .highlightable").perfectScrollbar("update");
 }
 
 function fallbackMessage(action) {
-    var actionMsg = '';
-    var actionKey = (action === 'cut' ? 'X' : 'C');
+    var actionMsg = "";
+    var actionKey = action === "cut" ? "X" : "C";
 
     if (/iPhone|iPad/i.test(navigator.userAgent)) {
-        actionMsg = 'No support :(';
-    }
-    else if (/Mac/i.test(navigator.userAgent)) {
-        actionMsg = 'Press ⌘-' + actionKey + ' to ' + action;
-    }
-    else {
-        actionMsg = 'Press Ctrl-' + actionKey + ' to ' + action;
+        actionMsg = "No support :(";
+    } else if (/Mac/i.test(navigator.userAgent)) {
+        actionMsg = "Press ⌘-" + actionKey + " to " + action;
+    } else {
+        actionMsg = "Press Ctrl-" + actionKey + " to " + action;
     }
 
     return actionMsg;
@@ -55,119 +55,131 @@ $(window).resize(function() {
 // debouncing function from John Hann
 // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
 (function($, sr) {
-
     var debounce = function(func, threshold, execAsap) {
         var timeout;
 
         return function debounced() {
-            var obj = this, args = arguments;
+            var obj = this,
+                args = arguments;
 
             function delayed() {
-                if (!execAsap)
-                    func.apply(obj, args);
+                if (!execAsap) func.apply(obj, args);
                 timeout = null;
-            };
+            }
 
-            if (timeout)
-                clearTimeout(timeout);
-            else if (execAsap)
-                func.apply(obj, args);
+            if (timeout) clearTimeout(timeout);
+            else if (execAsap) func.apply(obj, args);
 
             timeout = setTimeout(delayed, threshold || 100);
         };
-    }
+    };
     // smartresize
-    jQuery.fn[sr] = function(fn) { return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
-
-})(jQuery, 'smartresize');
-
+    jQuery.fn[sr] = function(fn) {
+        return fn ? this.bind("resize", debounce(fn)) : this.trigger(sr);
+    };
+})(jQuery, "smartresize");
 
 jQuery(document).ready(function() {
-    jQuery('#sidebar .category-icon').on('click', function() {
-        $( this ).toggleClass("fa-angle-down fa-angle-right") ;
-        $( this ).parent().parent().children('ul').toggle() ;
+    jQuery("#sidebar .category-icon").on("click", function() {
+        $(this).toggleClass("fa-angle-down fa-angle-right");
+        $(this)
+            .parent()
+            .parent()
+            .children("ul")
+            .toggle();
         return false;
     });
 
-    var sidebarStatus = searchStatus = 'open';
-    $('#sidebar .highlightable').perfectScrollbar();
+    var sidebarStatus = (searchStatus = "open");
+    $("#sidebar .highlightable").perfectScrollbar();
     setMenuHeight();
 
-    jQuery('#overlay').on('click', function() {
-        jQuery(document.body).toggleClass('sidebar-hidden');
-        sidebarStatus = (jQuery(document.body).hasClass('sidebar-hidden') ? 'closed' : 'open');
+    jQuery("#overlay").on("click", function() {
+        jQuery(document.body).toggleClass("sidebar-hidden");
+        sidebarStatus = jQuery(document.body).hasClass("sidebar-hidden") ? "closed" : "open";
 
         return false;
     });
 
-    jQuery('[data-sidebar-toggle]').on('click', function() {
-        jQuery(document.body).toggleClass('sidebar-hidden');
-        sidebarStatus = (jQuery(document.body).hasClass('sidebar-hidden') ? 'closed' : 'open');
+    jQuery("[data-sidebar-toggle]").on("click", function() {
+        jQuery(document.body).toggleClass("sidebar-hidden");
+        sidebarStatus = jQuery(document.body).hasClass("sidebar-hidden") ? "closed" : "open";
 
         return false;
     });
-    jQuery('[data-clear-history-toggle]').on('click', function() {
+    jQuery("[data-clear-history-toggle]").on("click", function() {
         sessionStorage.clear();
         location.reload();
         return false;
     });
-    jQuery('[data-search-toggle]').on('click', function() {
-        if (sidebarStatus == 'closed') {
-            jQuery('[data-sidebar-toggle]').trigger('click');
-            jQuery(document.body).removeClass('searchbox-hidden');
-            searchStatus = 'open';
+    jQuery("[data-search-toggle]").on("click", function() {
+        if (sidebarStatus == "closed") {
+            jQuery("[data-sidebar-toggle]").trigger("click");
+            jQuery(document.body).removeClass("searchbox-hidden");
+            searchStatus = "open";
 
             return false;
         }
 
-        jQuery(document.body).toggleClass('searchbox-hidden');
-        searchStatus = (jQuery(document.body).hasClass('searchbox-hidden') ? 'closed' : 'open');
+        jQuery(document.body).toggleClass("searchbox-hidden");
+        searchStatus = jQuery(document.body).hasClass("searchbox-hidden") ? "closed" : "open";
 
         return false;
     });
 
     var ajax;
-    jQuery('[data-search-input]').on('input', function() {
+    jQuery("[data-search-input]").on("input", function() {
         var input = jQuery(this),
             value = input.val(),
-            items = jQuery('[data-nav-id]');
-        items.removeClass('search-match');
+            items = jQuery("[data-nav-id]");
+        items.removeClass("search-match");
         if (!value.length) {
-            $('ul.topics').removeClass('searched');
-            items.css('display', 'block');
-            sessionStorage.removeItem('search-value');
-            $(".highlightable").unhighlight({ element: 'mark' })
+            $("ul.topics").removeClass("searched");
+            items.css("display", "block");
+            sessionStorage.removeItem("search-value");
+            $(".highlightable").unhighlight({ element: "mark" });
             return;
         }
 
-        sessionStorage.setItem('search-value', value);
-        $(".highlightable").unhighlight({ element: 'mark' }).highlight(value, { element: 'mark' });
+        sessionStorage.setItem("search-value", value);
+        $(".highlightable")
+            .unhighlight({ element: "mark" })
+            .highlight(value, { element: "mark" });
 
         if (ajax && ajax.abort) ajax.abort();
 
-        jQuery('[data-search-clear]').on('click', function() {
-            jQuery('[data-search-input]').val('').trigger('input');
-            sessionStorage.removeItem('search-input');
-            $(".highlightable").unhighlight({ element: 'mark' })
+        jQuery("[data-search-clear]").on("click", function() {
+            jQuery("[data-search-input]")
+                .val("")
+                .trigger("input");
+            sessionStorage.removeItem("search-input");
+            $(".highlightable").unhighlight({ element: "mark" });
         });
     });
 
     $.expr[":"].contains = $.expr.createPseudo(function(arg) {
-        return function( elem ) {
-            return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+        return function(elem) {
+            return (
+                $(elem)
+                    .text()
+                    .toUpperCase()
+                    .indexOf(arg.toUpperCase()) >= 0
+            );
         };
     });
 
-    if (sessionStorage.getItem('search-value')) {
-        var searchValue = sessionStorage.getItem('search-value')
-        $(document.body).removeClass('searchbox-hidden');
-        $('[data-search-input]').val(searchValue);
-        $('[data-search-input]').trigger('input');
-        var searchedElem = $('#body-inner').find(':contains(' + searchValue + ')').get(0);
+    if (sessionStorage.getItem("search-value")) {
+        var searchValue = sessionStorage.getItem("search-value");
+        $(document.body).removeClass("searchbox-hidden");
+        $("[data-search-input]").val(searchValue);
+        $("[data-search-input]").trigger("input");
+        var searchedElem = $("#body-inner")
+            .find(":contains(" + searchValue + ")")
+            .get(0);
         if (searchedElem) {
             searchedElem.scrollIntoView(true);
             var scrolledY = window.scrollY;
-            if(scrolledY){
+            if (scrolledY) {
                 window.scroll(0, scrolledY - 125);
             }
         }
@@ -175,31 +187,46 @@ jQuery(document).ready(function() {
 
     // clipboard
     var clipInit = false;
-    $('code').each(function() {
+    $("code").each(function() {
         var code = $(this),
             text = code.text();
 
         if (text.length > 5) {
             if (!clipInit) {
-                var text, clip = new Clipboard('.copy-to-clipboard', {
-                    text: function(trigger) {
-                        text = $(trigger).prev('code').text();
-                        return text.replace(/^\$\s/gm, '');
-                    }
-                });
+                var text,
+                    clip = new ClipboardJS(".copy-to-clipboard", {
+                        text: function(trigger) {
+                            text = $(trigger)
+                                .prev("code")
+                                .text();
+                            return text.replace(/^\$\s/gm, "");
+                        }
+                    });
 
                 var inPre;
-                clip.on('success', function(e) {
+                clip.on("success", function(e) {
                     e.clearSelection();
-                    inPre = $(e.trigger).parent().prop('tagName') == 'PRE';
-                    $(e.trigger).attr('aria-label', 'Copied to clipboard!').addClass('tooltipped tooltipped-' + (inPre ? 'w' : 's'));
+                    inPre =
+                        $(e.trigger)
+                            .parent()
+                            .prop("tagName") == "PRE";
+                    $(e.trigger)
+                        .attr("aria-label", "Copied to clipboard!")
+                        .addClass("tooltipped tooltipped-" + (inPre ? "w" : "s"));
                 });
 
-                clip.on('error', function(e) {
-                    inPre = $(e.trigger).parent().prop('tagName') == 'PRE';
-                    $(e.trigger).attr('aria-label', fallbackMessage(e.action)).addClass('tooltipped tooltipped-' + (inPre ? 'w' : 's'));
-                    $(document).one('copy', function(){
-                        $(e.trigger).attr('aria-label', 'Copied to clipboard!').addClass('tooltipped tooltipped-' + (inPre ? 'w' : 's'));
+                clip.on("error", function(e) {
+                    inPre =
+                        $(e.trigger)
+                            .parent()
+                            .prop("tagName") == "PRE";
+                    $(e.trigger)
+                        .attr("aria-label", fallbackMessage(e.action))
+                        .addClass("tooltipped tooltipped-" + (inPre ? "w" : "s"));
+                    $(document).one("copy", function() {
+                        $(e.trigger)
+                            .attr("aria-label", "Copied to clipboard!")
+                            .addClass("tooltipped tooltipped-" + (inPre ? "w" : "s"));
                     });
                 });
 
@@ -207,64 +234,84 @@ jQuery(document).ready(function() {
             }
 
             code.after('<span class="copy-to-clipboard" title="Copy to clipboard" />');
-            code.next('.copy-to-clipboard').on('mouseleave', function() {
-                $(this).attr('aria-label', null).removeClass('tooltipped tooltipped-s tooltipped-w');
+            code.next(".copy-to-clipboard").on("mouseleave", function() {
+                $(this)
+                    .attr("aria-label", null)
+                    .removeClass("tooltipped tooltipped-s tooltipped-w");
             });
         }
     });
 
     // allow keyboard control for prev/next links
     jQuery(function() {
-        jQuery('.nav-prev').click(function(){
-            location.href = jQuery(this).attr('href');
+        jQuery(".nav-prev").click(function() {
+            location.href = jQuery(this).attr("href");
         });
-        jQuery('.nav-next').click(function() {
-            location.href = jQuery(this).attr('href');
+        jQuery(".nav-next").click(function() {
+            location.href = jQuery(this).attr("href");
         });
+    });
+
+    jQuery("input, textarea").keydown(function(e) {
+        //  left and right arrow keys
+        if (e.which == "37" || e.which == "39") {
+            e.stopPropagation();
+        }
     });
 
     jQuery(document).keydown(function(e) {
-      // prev links - left arrow key
-      if(e.which == '37') {
-        jQuery('.nav.nav-prev').click();
-      }
+        // prev links - left arrow key
+        if (e.which == "37") {
+            jQuery(".nav.nav-prev").click();
+        }
 
-      // next links - right arrow key
-      if(e.which == '39') {
-        jQuery('.nav.nav-next').click();
-      }
+        // next links - right arrow key
+        if (e.which == "39") {
+            jQuery(".nav.nav-next").click();
+        }
     });
 
-    $('#top-bar a:not(:has(img)):not(.btn)').addClass('highlight');
-    $('#body-inner a:not(:has(img)):not(.btn):not(a[rel="footnote"])').addClass('highlight');
+    $("#top-bar a:not(:has(img)):not(.btn)").addClass("highlight");
+    $('#body-inner a:not(:has(img)):not(.btn):not(a[rel="footnote"])').addClass("highlight");
 
-    var touchsupport = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0)
-    if (!touchsupport){ // browser doesn't support touch
-        $('#toc-menu').hover(function() {
-            $('.progress').stop(true, false, true).fadeToggle(100);
+    var touchsupport =
+        "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+    if (!touchsupport) {
+        // browser doesn't support touch
+        $("#toc-menu").hover(function() {
+            $(".progress")
+                .stop(true, false, true)
+                .fadeToggle(100);
         });
 
-        $('.progress').hover(function() {
-            $('.progress').stop(true, false, true).fadeToggle(100);
+        $(".progress").hover(function() {
+            $(".progress")
+                .stop(true, false, true)
+                .fadeToggle(100);
         });
     }
-    if (touchsupport){ // browser does support touch
-        $('#toc-menu').click(function() {
-            $('.progress').stop(true, false, true).fadeToggle(100);
+    if (touchsupport) {
+        // browser does support touch
+        $("#toc-menu").click(function() {
+            $(".progress")
+                .stop(true, false, true)
+                .fadeToggle(100);
         });
-        $('.progress').click(function() {
-            $('.progress').stop(true, false, true).fadeToggle(100);
+        $(".progress").click(function() {
+            $(".progress")
+                .stop(true, false, true)
+                .fadeToggle(100);
         });
     }
 
-    /** 
-    * Fix anchor scrolling that hides behind top nav bar
-    * Courtesy of https://stackoverflow.com/a/13067009/28106
-    *
-    * We could use pure css for this if only heading anchors were
-    * involved, but this works for any anchor, including footnotes
-    **/
-    (function (document, history, location) {
+    /**
+     * Fix anchor scrolling that hides behind top nav bar
+     * Courtesy of https://stackoverflow.com/a/13067009/28106
+     *
+     * We could use pure css for this if only heading anchors were
+     * involved, but this works for any anchor, including footnotes
+     **/
+    (function(document, history, location) {
         var HISTORY_SUPPORT = !!(history && history.pushState);
 
         var anchorScrolls = {
@@ -274,17 +321,17 @@ jQuery(document).ready(function() {
             /**
              * Establish events, and fix initial scroll position if a hash is provided.
              */
-            init: function () {
+            init: function() {
                 this.scrollToCurrent();
-                $(window).on('hashchange', $.proxy(this, 'scrollToCurrent'));
-                $('body').on('click', 'a', $.proxy(this, 'delegateAnchors'));
+                $(window).on("hashchange", $.proxy(this, "scrollToCurrent"));
+                $("body").on("click", "a", $.proxy(this, "delegateAnchors"));
             },
 
             /**
              * Return the offset amount to deduct from the normal scroll position.
              * Modify as appropriate to allow for dynamic calculations
              */
-            getFixedOffset: function () {
+            getFixedOffset: function() {
                 return this.OFFSET_HEIGHT_PX;
             },
 
@@ -294,7 +341,7 @@ jQuery(document).ready(function() {
              * @param  {String} href
              * @return {Boolean} - Was the href an anchor.
              */
-            scrollIfAnchor: function (href, pushToHistory) {
+            scrollIfAnchor: function(href, pushToHistory) {
                 var match, anchorOffset;
 
                 if (!this.ANCHOR_REGEX.test(href)) {
@@ -305,7 +352,7 @@ jQuery(document).ready(function() {
 
                 if (match) {
                     anchorOffset = $(match).offset().top - this.getFixedOffset();
-                    $('html, body').animate({ scrollTop: anchorOffset });
+                    $("html, body").animate({ scrollTop: anchorOffset });
 
                     // Add the state to history as-per normal anchor links
                     if (HISTORY_SUPPORT && pushToHistory) {
@@ -319,7 +366,7 @@ jQuery(document).ready(function() {
             /**
              * Attempt to scroll to the current location's hash.
              */
-            scrollToCurrent: function (e) {
+            scrollToCurrent: function(e) {
                 if (this.scrollIfAnchor(window.location.hash) && e) {
                     e.preventDefault();
                 }
@@ -328,33 +375,25 @@ jQuery(document).ready(function() {
             /**
              * If the click event's target was an anchor, fix the scroll position.
              */
-            delegateAnchors: function (e) {
+            delegateAnchors: function(e) {
                 var elem = e.target;
 
-                // added by stormacq@amazon.com 
-                // do not scroll on tab anchors
-                if (elem.getAttribute('class') && elem.getAttribute('class').includes('ui-tabs-anchor')) {
-                    return;
-                }
-
-                if (this.scrollIfAnchor(elem.getAttribute('href'), true)) {
+                if (this.scrollIfAnchor(elem.getAttribute("href"), true)) {
                     e.preventDefault();
                 }
             }
         };
 
-        $(document).ready($.proxy(anchorScrolls, 'init'));
+        $(document).ready($.proxy(anchorScrolls, "init"));
     })(window.document, window.history, window.location);
-    
 });
 
-jQuery(window).on('load', function() {
-
+jQuery(window).on("load", function() {
     function adjustForScrollbar() {
-        if ((parseInt(jQuery('#body-inner').height()) + 83) >= jQuery('#body').height()) {
-            jQuery('.nav.nav-next').css({ 'margin-right': getScrollBarWidth() });
+        if (parseInt(jQuery("#body-inner").height()) + 83 >= jQuery("#body").height()) {
+            jQuery(".nav.nav-next").css({ "margin-right": getScrollBarWidth() });
         } else {
-            jQuery('.nav.nav-next').css({ 'margin-right': 0 });
+            jQuery(".nav.nav-next").css({ "margin-right": 0 });
         }
     }
 
@@ -366,20 +405,20 @@ jQuery(window).on('load', function() {
     });
 
     // store this page in session
-    sessionStorage.setItem(jQuery('body').data('url'), 1);
+    sessionStorage.setItem(jQuery("body").data("url"), 1);
 
     // loop through the sessionStorage and see if something should be marked as visited
     for (var url in sessionStorage) {
-        if (sessionStorage.getItem(url) == 1) jQuery('[data-nav-id="' + url + '"]').addClass('visited');
+        if (sessionStorage.getItem(url) == 1)
+            jQuery('[data-nav-id="' + url + '"]').addClass("visited");
     }
 
-
-    $(".highlightable").highlight(sessionStorage.getItem('search-value'), { element: 'mark' });
+    $(".highlightable").highlight(sessionStorage.getItem("search-value"), { element: "mark" });
 });
 
 $(function() {
     $('a[rel="lightbox"]').featherlight({
-        root: 'section#body'
+        root: "section#body"
     });
 });
 
@@ -388,8 +427,8 @@ jQuery.extend({
         if (node.nodeType === 3) {
             var match = node.data.match(re);
             if (match) {
-                var highlight = document.createElement(nodeName || 'span');
-                highlight.className = className || 'highlight';
+                var highlight = document.createElement(nodeName || "span");
+                highlight.className = className || "highlight";
                 var wordNode = node.splitText(match.index);
                 wordNode.splitText(match[0].length);
                 var wordClone = wordNode.cloneNode(true);
@@ -397,9 +436,13 @@ jQuery.extend({
                 wordNode.parentNode.replaceChild(highlight, wordNode);
                 return 1; //skip added node in parent
             }
-        } else if ((node.nodeType === 1 && node.childNodes) && // only element nodes that have children
+        } else if (
+            node.nodeType === 1 &&
+            node.childNodes && // only element nodes that have children
             !/(script|style)/i.test(node.tagName) && // ignore script and style nodes
-            !(node.tagName === nodeName.toUpperCase() && node.className === className)) { // skip if already highlighted
+            !(node.tagName === nodeName.toUpperCase() && node.className === className)
+        ) {
+            // skip if already highlighted
             for (var i = 0; i < node.childNodes.length; i++) {
                 i += jQuery.highlight(node.childNodes[i], re, nodeName, className);
             }
@@ -410,41 +453,45 @@ jQuery.extend({
 
 jQuery.fn.unhighlight = function(options) {
     var settings = {
-        className: 'highlight',
-        element: 'span'
+        className: "highlight",
+        element: "span"
     };
     jQuery.extend(settings, options);
 
-    return this.find(settings.element + "." + settings.className).each(function() {
-        var parent = this.parentNode;
-        parent.replaceChild(this.firstChild, this);
-        parent.normalize();
-    }).end();
+    return this.find(settings.element + "." + settings.className)
+        .each(function() {
+            var parent = this.parentNode;
+            parent.replaceChild(this.firstChild, this);
+            parent.normalize();
+        })
+        .end();
 };
 
 jQuery.fn.highlight = function(words, options) {
     var settings = {
-        className: 'highlight',
-        element: 'span',
+        className: "highlight",
+        element: "span",
         caseSensitive: false,
         wordsOnly: false
     };
     jQuery.extend(settings, options);
 
-    if (!words) { return; }
+    if (!words) {
+        return;
+    }
 
     if (words.constructor === String) {
         words = [words];
     }
     words = jQuery.grep(words, function(word, i) {
-        return word != '';
+        return word != "";
     });
     words = jQuery.map(words, function(word, i) {
         return word.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
     });
-    if (words.length == 0) { return this; }
-    ;
-
+    if (words.length == 0) {
+        return this;
+    }
     var flag = settings.caseSensitive ? "" : "i";
     var pattern = "(" + words.join("|") + ")";
     if (settings.wordsOnly) {
