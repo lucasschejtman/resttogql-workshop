@@ -28,6 +28,10 @@ const RestToGqlOrchestration = (stack: IRestToGqlStack) => {
         timeoutSec: 300
     });
 
+    new cdk.CfnOutput(scope, "state_machine_id", {
+        value: state.stateMachineArn
+    });
+
     stack.Orchestration = state;
 
     return stack;
