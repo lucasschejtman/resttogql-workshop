@@ -30,6 +30,7 @@ Navigate to AppSync and open up the scehma browser:
 
 1. Open up the AWS Console
 2. Go To the AppSync Service
+3. Select the resttogql-appsync API
 3. On the Left Hand Side select Schema
 
 You will see the following

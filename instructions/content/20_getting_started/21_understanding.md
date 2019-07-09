@@ -95,9 +95,14 @@ export default withAuthenticator(App, false);
 -   Wrapped the App component using withAuthenticator
 
 {{% notice tip %}}
-If you want to learn more about the Amplify client JS libraries and the with Authenticator HOC( Higher Order Components ) see
+If you want to learn more about the Amplify client JS libraries and the with Authenticator HOC (Higher Order Components) see
 [Amplify Authentication](https://aws-amplify.github.io/docs/js/authentication)
 {{% /notice %}}
+
+{{% notice tip %}}
+If you want to learn more about React Higher Order Components (HOC) see [Higher Order Components](
+ https://reactjs.org/docs/higher-order-components.html)
+ {{% /notice %}}
 
 ### StockTable.tsx
 
