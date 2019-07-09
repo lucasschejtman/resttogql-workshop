@@ -16,10 +16,12 @@ Amazon Cognito lets you add user sign-up, sign-in, and access control to your we
 
 ### Creating a User
 
-The first thing we need to do is create a new user - go ahead and do that by slecting 'create account', the user can be verified using phone or email.
+The first thing we need to do is create a new user - go ahead and do that by selecting 'create account', the user can be verified using phone or email.
 
 {{% notice info %}}
-If the verfication method is failing (email or phone verificatin message isnt delivered) then simply use the cognito console.{{% /notice %}}
+User password needs 1 upper, a symbol and a min length of 8
+
+If the verfication method is failing (email or phone verificatin message isnt delivered) then simply use the cognito console. {{% /notice %}}
 
 1. Login to AWS console
 2. Navigate to the Cognito service
