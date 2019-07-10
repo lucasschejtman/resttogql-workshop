@@ -9,7 +9,7 @@ The goal of this section is to change how the Detail page updates its its displa
 
 
 ### Client Changes
-* In Cloud 9 create a new folder under '/src/web/src/graphql/subscriptions.js' We will store our queries in here.  Add this as an import to Stock Table
+* In Cloud 9 create a new folder under '/src/web/src/graphql/subscriptions.js' We will store our queries in here.  Add this as an import to StockDetails.tsx
 
 ```tsx
 import * as subscriptions from  "./graphql/subscriptions.js"
