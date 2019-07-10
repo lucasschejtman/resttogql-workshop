@@ -15,7 +15,7 @@ The goal of this section is to change how the Detail page updates its its displa
 import * as subscriptions from  "./graphql/subscriptions.js"
 ```
 
-* Define our subbcription - Open up the newly created subscription.js file and paste the following in.
+* Define our subscription - Open up the newly created subscription.js file and paste the following in.
 
 ```tsx
 export const SubscribeToStock = `subscription SubscribeToStock {
