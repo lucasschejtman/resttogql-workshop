@@ -57,7 +57,7 @@ import * as queries from  "./graphql/queries.js"
 ```
 
 
-* Change the call to list companies to use the GraphQL endpoint as opposed to the rest enpoint .  The code is in the ComponentDIDMount function - after the change this function should look like below
+* StockTable.tsx - Change the call to list companies to use the GraphQL endpoint as opposed to the rest endpoint .  The code is in the ComponentDIDMount function - after the change this function should look like below
 
 ```tsx
 async componentDidMount() {
