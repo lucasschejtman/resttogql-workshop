@@ -84,6 +84,12 @@ async retrieveStock() {
 {{% notice info %}}
 Once you change these methods you may have a compile errors for stockValue - you can use you TS knowledge to fix or alternatively refer to the /solution/ folder in this repo
 {{% /notice %}}
+Hint 
+```tsx
+type stockResponse {
+    stock_value: string
+} 
+```
 
 ### Testing we are using GraphQL
 You can either open the developer console on your browser and see the request to AppSync - or edit the Queries to return less data and see how the page is then rendered
