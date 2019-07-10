@@ -1,5 +1,5 @@
 +++
-title = "Summary"
+title = "Summary and Clean Up"
 chapter = false
 weight = 1
 +++
@@ -9,12 +9,14 @@ weight = 1
 What we have done and why we did it
 ![Stocks Worshop Application](/images/architecture/Arch5.png)
 
-{{% notice info %}}
-For more information on how to build and deploy graphql schemas with amplify can be found here [https://TODO](https://TODO)
-{{% /notice %}}
 
-### Further Reading
+### Clean Up
+To clean up the lab run the following in Cloud 9 console
 
-### Our Proposed Future state
+```bash
+cd ~/environment/resttogql-workshop/src/infrastructure 
+
+cdk destroy
+```
 
 

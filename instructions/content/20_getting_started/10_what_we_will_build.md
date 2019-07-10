@@ -29,12 +29,12 @@ If we were to try and build scalable and highly-available systems to handle each
 
 * [Amazon Cognito](https://aws.amazon.com/cognito/), to handle user sign up authorization
 
-* [Amazon DynamoDB](https://aws.amazon.com/dynamodb/), to provide millisecond response times to API queries for album and photo data
+* [Amazon DynamoDB](https://aws.amazon.com/dynamodb/), to provide millisecond response times to API queries for Stock and Company Data
 
 * [AWS AppSync](https://aws.amazon.com/appsync/), to host a GraphQL API for our front end
 
-* [AWS Lambda](https://aws.amazon.com/lambda/), to create photo thumbnails asynchronously in the cloud
+* [AWS Lambda](https://aws.amazon.com/lambda/), to update our stock information
 
-* [Amazon Elasticsearch Service](https://aws.amazon.com/elasticsearch-service/), to index and search our photos by their labels
+* [Amazon Elasticsearch Service](https://aws.amazon.com/elasticsearch-service/), to create a running history of stock prices
 
 If any or all of these services are new to you, don't worry. We'll cover everything you need to know to get started using everything mentioned above. And there's no better way to learn than to build, so let's get started!
