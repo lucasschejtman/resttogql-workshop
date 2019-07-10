@@ -29,3 +29,6 @@ Navigate to AppSync and go to the security section:
 
 ![AppSync Security Link](/images/appsync-settings-link.png)
 ![AppSync Authentication Mode](/images/appsync-authentication-mode.png)
+
+
+* dont forget to 'Save' - at the bottom
