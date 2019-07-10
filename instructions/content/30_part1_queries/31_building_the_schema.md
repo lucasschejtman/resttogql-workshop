@@ -90,8 +90,6 @@ Finally we need to add these into the new schema, using the 'schema' construct -
 ```tsx
 schema {
 	query: Query
-	mutation: Mutation
-	subscription: Subscription
 }
 ```
 
