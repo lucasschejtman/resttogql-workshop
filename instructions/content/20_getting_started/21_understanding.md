@@ -6,57 +6,24 @@ weight = 30
 
 ### The login screen
 
-The first screen should be presented and look like this
+If you remember, as a part of the bootstrap process, you already created a user that you can use to login.
+
+The first screen should be presented and look like this. Use the following creadentials to authenticate (be careful, it is case sensitive).
+
+-   Username: TestUser
+-   Password: Test123!
 
 ![loging](/images/app-signin-screen.png)
+
+{{% notice info %}}
+You will see another dialog to verify the user. Don't worry about it, it has already been verified in the backend. You can just go ahead and press 'Skip'
+{{% /notice %}}
+
+![skip verification](/images/login-verification-skip.png)
 
 {{% notice tip %}}
 Amazon Cognito lets you add user sign-up, sign-in, and access control to your web and mobile apps quickly and easily. We just made a User Pool, which is a secure user directory that will let our users sign in with the username and password pair they create during registration. Amazon Cognito (and the Amplify CLI) also supports configuring sign-in with social identity providers, such as Facebook, Google, and Amazon, and enterprise identity providers via SAML 2.0. If you'd like to learn more, we have a lot more information on the [Amazon Cognito Developer Resources page](https://aws.amazon.com/cognito/dev-resources/) as well as the [AWS Amplify Authentication documentation.](https://aws-amplify.github.io/amplify-js/media/authentication_guide#federated-identities-social-sign-in)
 {{% /notice %}}
-
-### Creating a User
-
-The first thing we need to do is create a new user - go ahead and do that by selecting 'create account', the user can be verified using phone or email.
-
-{{% notice info %}}
-User password needs 1 upper, a symbol and a min length of 8
-
-If the verfication method is failing (email or phone verificatin message isnt delivered) then simply use the cognito console. {{% /notice %}}
-
-1. Login to AWS console
-2. Navigate to the Cognito service
-3. Select 'Manage User Pools'
-4. Select the 'resttogql-userpool'
-5. Select 'Users and Groups' -> click on the user you just created
-6. Click 'Confirm User'
-
-{{% notice info %}}
-You can now login with this user to the app - you can skip any further verfication flow dialogs
-{{% /notice %}}
-
-Once logged in you should be presented with the StocksTable page. This page is a view that shows all the possible stocks and their most current value.
-
-{{% notice info %}}
-Before we're ready to go, you will need to finish the bootstrapping process by running the setup step function that was deployed with the same, using the steps below
-{{% /notice %}}
-
-1. Login to AWS console
-2. Navigate to the Step Function service
-3. Select the function - name should start with 'StateMachine'
-4. Select 'Start Execution' and then 'Start Execution'
-5. Once execution is finished, Navigate back into your app and refresh the page
-
-{{% notice info %}}
-You should now see a list of random stocks:
-![StocksList](/images/StocksList.png)
-
-{{% /notice %}}
-
-If you click on a line in the table you should then be taken to a more detailed view of that stock over time.
-
-Go Ahead and start getting familiar with the app ( shouldn't take long :) )
-
-Next, we'll have a look at the classes of interest.
 
 ### App
 
@@ -100,9 +67,8 @@ If you want to learn more about the Amplify client JS libraries and the with Aut
 {{% /notice %}}
 
 {{% notice tip %}}
-If you want to learn more about React Higher Order Components (HOC) see [Higher Order Components](
- https://reactjs.org/docs/higher-order-components.html)
- {{% /notice %}}
+If you want to learn more about React Higher Order Components (HOC) see [Higher Order Components](https://reactjs.org/docs/higher-order-components.html)
+{{% /notice %}}
 
 ### StockTable.tsx
 
