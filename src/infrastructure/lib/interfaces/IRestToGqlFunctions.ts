@@ -9,5 +9,5 @@ export default interface APIFunctions {
     ["es-setup"]: IFunction;
     ["seed-ddb"]: IFunction;
     ["ddb-to-es"]: IFunction;
-    //['ddb-to-es-trigger']: IFunction
+    ["add-cognito-user"]: IFunction;
 }

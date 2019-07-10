@@ -16,6 +16,7 @@ const RestToGqlAuth = (stack: IRestToGqlStack) => {
     });
 
     stack.Auth = pool;
+    stack.AuthClient = poolClient;
 
     new cdk.CfnOutput(scope, "cognito_userpool_id", {
         value: pool.userPoolId

@@ -16,12 +16,11 @@ const RestToGqlOrchestration = (stack: IRestToGqlStack) => {
         task: new stepfunctionsTasks.InvokeFunction(fns["seed-ddb"])
     });
 
-    // const ddbToEs = new stepfunctions.Task(scope, 'DDB to ES setup', {
-    //     resource: fns['ddb-to-es-trigger']
-    // });
+    const cognitoAdd = new stepfunctions.Task(scope, "Add cognito user to pool", {
+        task: new stepfunctionsTasks.InvokeFunction(fns["add-cognito-user"])
+    });
 
-    const definition = esSetup.next(seedDDB);
-    //.next(ddbToEs);
+    const definition = esSetup.next(seedDDB).next(cognitoAdd);
 
     const state = new stepfunctions.StateMachine(scope, "StateMachine", {
         definition,

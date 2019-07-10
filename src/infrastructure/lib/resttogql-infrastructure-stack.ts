@@ -30,6 +30,7 @@ export class RestToGqlInfrastructureStack extends cdk.Stack implements IRestToGq
     private _table: dynamodb.Table;
     private _functions: IRestToGqlFunctions;
     private _auth: cognito.CfnUserPool;
+    private _authClient: cognito.CfnUserPoolClient;
     private _appSync: appsync.CfnGraphQLApi;
     private _orchestration: stepfunctions.StateMachine;
 
@@ -51,6 +52,14 @@ export class RestToGqlInfrastructureStack extends cdk.Stack implements IRestToGq
 
     get Auth() {
         return this._auth;
+    }
+
+    set AuthClient(val) {
+        this._authClient = val;
+    }
+
+    get AuthClient() {
+        return this._authClient;
     }
 
     set Table(val) {
@@ -102,8 +111,8 @@ export class RestToGqlInfrastructureStack extends cdk.Stack implements IRestToGq
             RestToGqlOrchestration,
             RestToGqlAppSync,
             RestToGqlAPI,
-            RestToGqlAuth,
             RestToGqlFunctions,
+            RestToGqlAuth,
             RestToGqlTable,
             RestToGqlES
         );

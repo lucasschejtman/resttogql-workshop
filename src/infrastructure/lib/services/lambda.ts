@@ -15,7 +15,10 @@ const RestToGqlFunctions = (stack: IRestToGqlStack) => {
     const esEndpoint = stack.ESDomain.domainEndpoint;
     const fnRole = new iam.Role(scope, "lambda_execution_role", {
         assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com"),
-        managedPolicyArns: ["arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"]
+        managedPolicyArns: [
+            "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
+            "arn:aws:iam::aws:policy/AmazonCognitoPowerUser"
+        ]
     });
     fnRole.addToPolicy(
         new iam.PolicyStatement()
@@ -83,6 +86,14 @@ const RestToGqlFunctions = (stack: IRestToGqlStack) => {
         environment: { ["DDB_TABLE_NAME"]: DDB_TABLE_NAME }
     });
 
+    const addCognitoUser = fn("add-cognito-user", {
+        role: fnRole,
+        environment: {
+            ["USER_POOL_ID"]: stack.Auth.userPoolId,
+            ["USER_POOL_CLIENT_ID"]: stack.AuthClient.userPoolClientId
+        }
+    });
+
     stack.Functions = {
         ["es-stock-value"]: esStockValue,
         ["get-company"]: getCompany,
@@ -91,7 +102,8 @@ const RestToGqlFunctions = (stack: IRestToGqlStack) => {
         ["update-stock"]: updateStock,
         ["es-setup"]: esSetup,
         ["seed-ddb"]: seedDDB,
-        ["ddb-to-es"]: ddbToEs
+        ["ddb-to-es"]: ddbToEs,
+        ["add-cognito-user"]: addCognitoUser
     };
 
     return stack;

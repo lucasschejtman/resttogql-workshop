@@ -14,6 +14,7 @@ export default interface IRestToGqlStack {
     Table: dynamodb.Table;
     Functions: IRestToGqlFunctions;
     Auth: cognito.CfnUserPool;
+    AuthClient: cognito.CfnUserPoolClient;
     AppSync: appsync.CfnGraphQLApi;
     Orchestration: stepfunctions.StateMachine;
 }
