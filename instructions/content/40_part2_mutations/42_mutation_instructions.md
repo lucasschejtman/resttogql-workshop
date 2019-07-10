@@ -9,7 +9,7 @@ The goal of this section is to change how the Detail page loads it displayed dat
 
 
 ### Client Changes
-* In Cloud 9 create a new folder under '/src/web/src/graphql/mutations.js' We will store our queries in here.  Add this as an import to StockTable.tsx
+* In Cloud 9 create a new folder under '/src/web/src/graphql/mutations.js' We will store our queries in here.  Add this as an import to StockDetails.tsx
 
 ```tsx
 import * as mutations from  "./graphql/mutations.js"
