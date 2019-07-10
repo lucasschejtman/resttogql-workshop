@@ -1,7 +1,7 @@
 +++
 title = "Changing Queries"
 chapter = false
-weight = 2
+weight = 3
 +++
 
 ## Our Goal

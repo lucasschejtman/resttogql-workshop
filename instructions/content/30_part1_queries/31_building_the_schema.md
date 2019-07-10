@@ -124,7 +124,7 @@ For more information on Data sources and how to attach to resolvers [https://doc
 
 Fill out the resulting screen so it looks like below
 
-![Queries](/images/create_data_source.png)
+![new data source](/images/create_data_source.png)
 
 * Select 'Create'
 
@@ -163,7 +163,6 @@ The response template is even simpler - it parses the response from the underlyi
 
 * Copy the following into the Request Mapping field (replace everything thats there)
 
-
 ```vtl
 $util.toJson(
   $util.parseJson(
@@ -171,17 +170,154 @@ $util.toJson(
   ).Items
 )
 ```
+
+* Dont forget to SAVE your resolver !! by select 'Save Resolver' in the top right.
+
 {{% notice info %}}
 For more information on Configuring resolvers [https://docs.aws.amazon.com/appsync/latest/devguide/configuring-resolvers.html](https://docs.aws.amazon.com/appsync/latest/devguide/configuring-resolvers.html)
 {{% /notice %}}
 
 
+### Attach the remaining resolvers
+Now lets add resolvers to the getCompany and listHistogram Queries.  
 
 
+#### GetCompany Query Resolver
+##### DataSource
+The getCompany query has a resolver into a DynamoDB table. Lets create the Dynamo DataSource for this resolver first.
+
+In AppSync select 'Data Sources' on the left hand side, you should see the EXISTING_API source we have just created - lets add a new one.
+
+* Select 'Create Datasource'
+
+Fill out the field as shown below and select 'Create'
+
+{{% notice info %}}
+If you cant find the DynamoDB Table 'resttogql-company-table' make sure you are selected the same region as the CDK script was deployed into previously
+{{% /notice %}}
 
 
+![DynamoDB data source](/images/dynamo_datasource.png)
+
+##### Mapping Templates
+Now we have the data source for this query, lets add the resolver and its mapping templates.  
+
+* Navigate back to you schema and select 'Attach' to attach the datasource to the GetCompany Query.
+
+* Select 'AMAZON_DYNAMODB' as the Data Source Name.
+
+* Fill in the following for the mapping templates.
+
+Request Mapping
+
+```tsx
+{
+    "version": "2017-02-28",
+    "operation": "GetItem",
+    "key": {
+        "company_id": $util.dynamodb.toDynamoDBJson($ctx.args.id),
+    }
+}
+
+```
+
+Response Mapping
+
+```tsx
+$util.toJson($ctx.result)
+```
 
 
+* Dont forget to SAVE your resolver !! by select 'Save Resolver' in the top right.
+
+
+#### StockHistogram Query Resolver
+##### DataSource
+The StockHistogram query has a resolver into a ElasticSearch table. Lets create the ElasticSearch DataSource for this resolver first.
+
+In AppSync select 'Data Sources' on the left hand side, you should see the EXISTING_API and AMAZON_DYNAMODB sources we have just created - lets add a new one.
+
+* Select 'Create Datasource'
+
+Fill out the field as shown below and select 'Create'
+
+
+{{% notice info %}}
+If you cant find the ElasticSearch Domain 'resttogpl-company-domain' make sure you are selected the same region as the CDK script was deployed into previously
+{{% /notice %}}
+
+![Elastic Search data source](/images/ElasticSearch_datasource.png)
+
+##### Mapping Templates
+Now we have the data source for this query, lets add the resolver and its mapping templates.  
+
+* Navigate back to you schema and select 'Attach' to attach the datasource to the StockHistory Query.
+
+* Select 'ELASTIC_SEARCH' as the Data Source Name.
+
+* Fill in the following for the mapping templates.
+
+Request Mapping
+
+```tsx
+{
+  "version":"2017-02-28",
+  "operation":"POST",
+  "path":"/stocks/_search?size=0",
+  "params":{
+    "body": {
+      "aggs": {
+        "top_tags": {
+            "filter": {
+              "term": { "companyId": $context.args.company_id }	
+            },
+            "aggs": {
+              "latest_stock_prices": {
+                "top_hits": {
+                  "sort": [
+                    {
+                      "timestamp": {
+                        "order": "desc"
+                      }
+                    }
+                  ],
+                  "_source": {
+                    "includes": [ "companyId", "stockValue", "delta" ]
+                  },
+                  "size" : $context.args.limit
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+esponse Mapping
+
+```tsx
+#set($array = [])
+
+#foreach($entry in $context.result.aggregations.top_tags.latest_stock_prices.hits.hits) 
+	$util.qr(
+      $array.add(
+      	$util.toJson({ "stock_value": $entry.get("_source").stockValue })
+      )
+    )
+#end
+
+$array
+```
+
+* Dont forget to SAVE your resolver !! by select 'Save Resolver' in the top right.
+
+
+### Completed
+
+Once completed your resolver list should look like the following
 
 
 ![Queries](/images/resolvers.png)

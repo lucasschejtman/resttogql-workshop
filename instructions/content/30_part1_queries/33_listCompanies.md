@@ -1,7 +1,7 @@
 +++
 title = "List Companies Query"
 chapter = false
-weight = 3
+weight = 4
 +++
 
 ## Our Goal
