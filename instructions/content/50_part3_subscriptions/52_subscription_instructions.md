@@ -66,7 +66,7 @@ Also this is where we will register the client for the aubscription and when the
         this.setState({
             company: newComp
         });
-        await this.retrieveHistogram();
+        await this.retrieveStock();
     }
 ```
 
