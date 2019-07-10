@@ -23,11 +23,39 @@ Subscriptions are a way of notify registered clients that a mutation has happene
 
 
 ### The Schema
-Subscriptions are registered as a type like Queries and mutations, you can see the 'onStockChange subscription below. When creating a subscription it needs a Type to send to the client(  in this case its our type 'Stock') and it needs a mutation to attach to ( in this case its attach to  the UpdateStock mutation)   
+Subscriptions are registered as a type like Queries and Mutations.
 
-![Subscriptions](/images/subscriptions.png)
+First lets add our subscription to our schema
 
-Notice that you can attach resolvers to subscriptions, this might be useful if tracking when a subscription is fired.
+1. Open up the AWS Console
+2. Go To the AppSync Service
+3. Select the 'resttogql-appsync' API you created earlier
+4. Select the Schema item on the left hand side
+5. Add the following code that defines the subscription into the schema
+
+```tsx
+type Subscription {
+	onStockChange: Stock
+		@aws_subscribe(mutations: ["updateCompanyStock"])
+}
+```
+
+* Now add the mutation into the schema 'import' statement so it now looks like the below.
+
+```tsx
+schema {
+	query: Query
+    mutation: Mutation
+  	subscription: Subscription
+}
+```
+
+* Dont forget to save your schema by selecting 'Save Schema'
+
+ When creating a subscription (onStockChange) it needs a Type to send to the client ( in this case its our type 'Stock') and it needs a mutation to attach to ( in this case its attach to  the UpdateCompanyStock mutation)   
+
+
+Notice that you can attach resolvers to subscriptions, this might be useful if tracking when a subscription is fired. But in this example we will not
 
 
 
