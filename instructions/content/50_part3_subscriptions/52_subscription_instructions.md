@@ -9,10 +9,20 @@ The goal of this section is to change how the Detail page updates its its displa
 
 
 ### Client Changes
-* In Cloud 9 create a new folder under '/src/web/src/graphql/subscriptions.js' We will store our queries in here.  Add this as an import to Stock Table
+* In Cloud 9 create a new folder under '/src/web/src/graphql/subscriptions.js' We will store our queries in here.  Add this as an import to StockDetails.tsx
 
 ```tsx
 import * as subscriptions from  "./graphql/subscriptions.js"
+```
+
+* Define our subscription - Open up the newly created subscription.js file and paste the following in.
+
+```tsx
+export const SubscribeToStock = `subscription SubscribeToStock {
+  onStockChange {
+    stock_value
+  }
+}`;
 ```
 
 * Add a new state property to store subscription - add this as part of State interface.
@@ -56,7 +66,7 @@ Also this is where we will register the client for the aubscription and when the
         this.setState({
             company: newComp
         });
-        await this.retrieveHistogram();
+        await this.retrieveStock();
     }
 ```
 

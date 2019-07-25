@@ -1,5 +1,5 @@
 +++
-title = "In Summary"
+title = "Summary & Clean Up"
 weight = 45
 chapter = true
 +++

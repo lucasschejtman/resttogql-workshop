@@ -80,6 +80,10 @@ REACT_APP_API_ENDPOINT=[Your APIGW Endpoint]
 REACT_APP_APPSYNC_ENDPOINT=[Your AppSync Endpoint]
 ```
 
+{{% notice warning %}}
+Any time you change the .env file, then you will need to re-start the application
+{{% /notice %}}
+
 ### Bootstrapping the App
 
 In this section, we can run the AWS Step Functions state machine that was created to bootstrap our application. You can see the detailed definition of it by going to the service page but at a high level it will perform three steps.
