@@ -86,7 +86,7 @@ Any time you change the .env file, then you will need to re-start the applicatio
 
 ### Bootstrapping the App
 
-In this section, we can run the AWS Step Functions state machine that was created to bootstrap our application. You can see the detailed definition of it by going to the service page but at a high level it will perform three steps.
+In this section, you can run the AWS Step Functions state machine that was created to bootstrap our application. You can see the detailed definition of it by going to the service page but at a high level it will perform three steps.
 
 1. Create a DynamoDB stream that will be processed by an AWS Lambda function to index information into ElasticSearch
 2. Populate our DynamoDB table with some mock data

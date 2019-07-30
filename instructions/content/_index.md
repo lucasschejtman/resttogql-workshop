@@ -8,15 +8,12 @@ weight: 1
 
 ### Welcome!
 
-
-
-
 <p style='text-align: left;'>
-    In this workshop we will take an existing stock trading application written with React and AWS Amplify.  
+    In this workshop you will take an existing stock trading application written with React and AWS Amplify.  
     
-    We will convert its existing RESTful API from REST ( Amazon API-Gateway ) to using GraphQL ( AWS AppSync ).
+    you will convert its existing RESTful API from REST ( Amazon API-Gateway ) to using GraphQL ( AWS AppSync ).
     
-    In doing so we will also explore the benefits that GraphQL API's have over traditional RESTful API's.
+    In doing so you will also explore the benefits that GraphQL API's have over traditional RESTful API's.
 
 </p>
 <p style='text-align: left;'>

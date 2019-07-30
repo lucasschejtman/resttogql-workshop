@@ -26,7 +26,7 @@ Before building a GraphQL schema its important to know the Domain Model you are 
 
 Next we will look at our Schema and explain the various elements.
 
-Navigate to AppSync and open up the scehma browser:
+Navigate to AppSync and open up the schema browser:
 
 1. Open up the AWS Console
 2. Go To the AppSync Service
@@ -83,7 +83,7 @@ type Query {
 
 -   Copy and paste them into your new schema under the Company Type.
 
-Finally we need to add these into the new schema, using the 'schema' construct - this is like an import for a GraphQL schema and looks like below:
+Finally you need to add these into the new schema, using the 'schema' construct - this is like an import for a GraphQL schema and looks like below:
 
 ```tsx
 schema {
@@ -105,7 +105,7 @@ Resolver have 3 parts
 2. The Request Mapping Template
 3. The Response Mapping Template
 
-Resolvers are the mechanisn that connects AppSync to the underlying datasources that your schema needs. We can get access to the resolvers in the Schema screen (they are on the right hand side)
+Resolvers are the mechanisn that connects AppSync to the underlying datasources that your schema needs. You can get access to the resolvers in the Schema screen (they are on the right hand side)
 
 You should see there all the types you created in the last section ( if you cant, save your schema ). Scroll down and and find the listCompanies Query, there should be an 'Attach' button beside it. Select this button
 
@@ -127,7 +127,7 @@ Fill out the resulting screen so it looks like below
 
 -   Select 'Create'
 
-So we have now created our data source, we can now go back and finish the resolver for the listCompanies query.
+So you have now created our data source, you can now go back and finish the resolver for the listCompanies query.
 
 -   Go Back to your schema, on the right hand side find your 'listCompanies' Query and select 'Attach' and select the EXISTING_API as the data source. You should now see some pre-populated mapping templates for your resolver.
 
@@ -181,13 +181,13 @@ For more information on Configuring resolvers [https://docs.aws.amazon.com/appsy
 
 ### Attach the remaining resolvers
 
-Now lets add resolvers to the getCompany and listHistogram Queries.
+Now you can add resolvers to the getCompany and listHistogram Queries.
 
 #### GetCompany Query Resolver
 
 ##### DataSource
 
-The getCompany query has a resolver into a DynamoDB table. Lets create the Dynamo DataSource for this resolver first.
+The getCompany query has a resolver into a DynamoDB table. Go ahead and create the Dynamo DataSource for this resolver first.
 
 In AppSync select 'Data Sources' on the left hand side, you should see the EXISTING_API source we have just created - lets add a new one.
 
@@ -238,14 +238,14 @@ $util.toJson($ctx.result);
 
 The StockHistogram query has a resolver into a ElasticSearch table. Lets create the ElasticSearch DataSource for this resolver first.
 
-In AppSync select 'Data Sources' on the left hand side, you should see the EXISTING_API and AMAZON_DYNAMODB sources we have just created - lets add a new one.
+In AppSync select 'Data Sources' on the left hand side, you should see the EXISTING_API and AMAZON_DYNAMODB sources we have just created - add a new one.
 
 -   Select 'Create Datasource'
 
 Fill out the field as shown below and select 'Create'
 
 {{% notice info %}}
-If you cant find the ElasticSearch Domain 'resttogpl-company-domain' make sure you are selected the same region as the CDK script was deployed into previously
+If you can't find the ElasticSearch Domain 'resttogpl-company-domain' make sure you are selected the same region as the CDK script was deployed into previously
 {{% /notice %}}
 
 ![Elastic Search data source](/images/ElasticSearch_datasource.png)
@@ -299,7 +299,7 @@ Request Mapping
 }
 ```
 
-esponse Mapping
+Response Mapping
 
 ```tsx
 #set($array = [])

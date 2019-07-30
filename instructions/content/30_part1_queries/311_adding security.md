@@ -8,7 +8,7 @@ weight = 2
 
 The goal of this section is to make sure our newly created AppSync API is fully secured.
 
-We will do this in the AWS console, however this is not the only way this can be done.
+You will do this in the AWS console, however this is not the only way this can be done.
 
 {{% notice info %}}
 For more information on all the security options in AWS Appsync you can visit [https://docs.aws.amazon.com/appsync/latest/devguide/security.html](https://docs.aws.amazon.com/appsync/latest/devguide/security.html)

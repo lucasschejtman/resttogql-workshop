@@ -4,11 +4,11 @@ chapter = false
 weight = 20
 +++
 
-Before we begin coding, there are a few things we need to install, update, and configure in the Cloud9 environment.
+Before you begin coding, there are a few things you need to install, update, and configure in the Cloud9 environment.
 
 ### Installing and updating
 
-In the Cloud9 terminal, **run the following commands** to install and update some software we'll be using for this workshop:
+In the Cloud9 terminal, **run the following commands** to install and update some software you'll be using for this workshop:
 
 ```bash
 # Update the AWS CLI
@@ -18,7 +18,7 @@ pip install --user --upgrade awscli
 nvm install v8.11.0
 nvm alias default v8.11.0
 
-# Install the AWS CDK 
+# Install the AWS CDK
 npm install -g aws-cdk@0.34.0
 ```
 
@@ -26,9 +26,9 @@ npm install -g aws-cdk@0.34.0
 These commands will take a few minutes to finish.
 {{% /notice %}}
 
-### Configuring a default region 
+### Configuring a default region
 
-A best practice is to deploy your infrastructure close to your customers, let's configure a default AWS region for this workshop : Northern Virginia (*us-east-1*) for North America or Ireland (*eu-west-1*) for Europe.
+A best practice is to deploy your infrastructure close to your customers, let's configure a default AWS region for this workshop : Northern Virginia (_us-east-1_) for North America or Ireland (_eu-west-1_) for Europe.
 
 **Create an AWS config file**, run the following in the terminal :
 {{% notice info %}}
@@ -37,15 +37,18 @@ Make sure the regions align, whatever region your running cloud9 in, choose that
 
 {{% tabs %}}
 {{% tab "us-east-1" "North America" %}}
+
 ```bash
 cat <<END > ~/.aws/config
 [default]
 region=us-east-1
 END
 ```
+
 {{% /tab %}}
 
 {{% tab  "eu-west-1"  "Europe" %}}
+
 ```bash
 cat <<END > ~/.aws/config
 [default]
@@ -56,6 +59,7 @@ END
 {{% /tab %}}
 
 {{% tab  "ap-southeast-1"  "Singapore" %}}
+
 ```bash
 cat <<END > ~/.aws/config
 [default]

@@ -5,18 +5,18 @@ weight = 2
 +++
 
 ## Our Goal
-The goal of this section is to change how the Detail page loads it displayed data.   Currenly it is using the following RESTful endpoints /companies/{id}/stock .  We want to change this to use oue new GraphQL schema that we looked at in the last section.
 
+The goal of this section is to change how the Detail page loads it displayed data. Currenly it is using the following RESTful endpoints `/companies/{id}/stock`. You want to change this to use oue new GraphQL schema that we looked at in the last section.
 
 ### Client Changes
-* In Cloud 9 create a new folder under '/src/web/src/graphql/mutations.js' We will store our queries in here.  Add this as an import to StockDetails.tsx
+
+-   In Cloud 9 create a new folder under '/src/web/src/graphql/mutations.js' We will store our queries in here. Add this as an import to StockDetails.tsx
 
 ```tsx
-import * as mutations from  "./graphql/mutations.js"
+import * as mutations from "./graphql/mutations.js";
 ```
 
-* Change the call to update stock  to use the GraphQL endpoint as opposed to the rest enpoint .  The code is in the onAction() function - after the change this function should look like below
-
+-   Change the call to update stock to use the GraphQL endpoint as opposed to the rest enpoint. The code is in the onAction() function - after the change this function should look like below
 
 ```tsx
  async onAction() {
@@ -33,9 +33,7 @@ import * as mutations from  "./graphql/mutations.js"
     }
 ```
 
-
-* Define our mutation - Open up the newly created mutations.js file and paste the following in.
-
+-   Define your mutation - Open up the newly created mutations.js file and paste the following in.
 
 ```tsx
 export const UpdateCompanyStock = `mutation UpdateCompanyStock($company_id: Int!) {
@@ -46,8 +44,6 @@ export const UpdateCompanyStock = `mutation UpdateCompanyStock($company_id: Int!
 }`;
 ```
 
-
 ### Testing we are using GraphQL
+
 You can either open the developer console on your browser and see the request to AppSync - or edit the updateCompanyStock Query to return less data (value) and see how the page is then rendered
-
-
