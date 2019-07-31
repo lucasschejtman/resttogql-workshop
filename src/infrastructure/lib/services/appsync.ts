@@ -1,10 +1,11 @@
-import * as cdk from "@aws-cdk/cdk";
+import * as cdk from "@aws-cdk/core";
 import * as iam from "@aws-cdk/aws-iam";
 import * as appsync from "@aws-cdk/aws-appsync";
 import * as path from "path";
 import { readFileSync } from "fs";
 
 import IRestToGqlStack from "../interfaces/IRestToGqlStack";
+import { ManagedPolicy } from "@aws-cdk/aws-iam";
 
 const BASE_DIR = "server/graphql";
 const AWS_REGION = process.env.AWS_REGION || "";
@@ -45,16 +46,16 @@ const buildSchema = (scope: cdk.Construct, apiId: string) => {
 const buildRole = (scope: cdk.Construct) => {
     const fnRole = new iam.Role(scope, "appsync_execution_role", {
         assumedBy: new iam.ServicePrincipal("appsync.amazonaws.com"),
-        managedPolicyArns: [
-            "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
-            "arn:aws:iam::aws:policy/AWSLambdaFullAccess"
+        managedPolicies: [
+            ManagedPolicy.fromAwsManagedPolicyName("AmazonDynamoDBFullAccess"),
+            ManagedPolicy.fromAwsManagedPolicyName("AWSLambdaFullAccess")
         ]
     });
-    fnRole.addToPolicy(
-        new iam.PolicyStatement()
-            .addAllResources()
-            .addActions("es:ESHttpPost", "es:ESHttpPut", "es:ESHttpDelete")
-    );
+
+    const esPolicy = new iam.PolicyStatement();
+    esPolicy.addAllResources();
+    esPolicy.addActions("es:ESHttpPost", "es:ESHttpPut", "es:ESHttpDelete");
+    fnRole.addToPolicy(esPolicy);
 
     return fnRole;
 };
@@ -175,7 +176,7 @@ const RestToGqlAppSync = (stack: IRestToGqlStack) => {
 
     // API
     const api = buildApi(scope, stack.Auth.userPoolId);
-    const apiId = api.graphQlApiApiId;
+    const apiId = api.attrApiId;
 
     // Schema
     buildSchema(scope, apiId);
@@ -183,7 +184,7 @@ const RestToGqlAppSync = (stack: IRestToGqlStack) => {
     // Data Sources
     const role = buildRole(scope);
     const ddbSource = buildDDBSource(scope, apiId, stack.Table.tableName, role.roleArn);
-    const esSource = buildESSource(scope, apiId, stack.ESDomain.domainEndpoint, role.roleArn);
+    const esSource = buildESSource(scope, apiId, stack.ESDomain.attrDomainEndpoint, role.roleArn);
     const httpSource = buildHTTPSource(scope, apiId, stack.API.url);
     const lambdaSource = buildLambdaSource(
         scope,
@@ -193,15 +194,15 @@ const RestToGqlAppSync = (stack: IRestToGqlStack) => {
     );
 
     // Resolvers
-    buildDDBResolver(scope, apiId, ddbSource.dataSourceName);
-    buildESResolver(scope, apiId, esSource.dataSourceName);
-    buildHTTPResolver(scope, apiId, httpSource.dataSourceName);
-    buildLambdaResolver(scope, apiId, lambdaSource.dataSourceName);
+    buildDDBResolver(scope, apiId, ddbSource.name);
+    buildESResolver(scope, apiId, esSource.name);
+    buildHTTPResolver(scope, apiId, httpSource.name);
+    buildLambdaResolver(scope, apiId, lambdaSource.name);
 
     stack.AppSync = api;
 
     new cdk.CfnOutput(scope, "appsync_endpoint", {
-        value: api.graphQlApiGraphQlUrl
+        value: api.attrGraphQlUrl
     });
 
     return stack;

@@ -1,4 +1,4 @@
-import * as cdk from "@aws-cdk/cdk";
+import * as cdk from "@aws-cdk/core";
 import * as elasticsearch from "@aws-cdk/aws-elasticsearch";
 import * as apigateway from "@aws-cdk/aws-apigateway";
 import * as cognito from "@aws-cdk/aws-cognito";
@@ -29,8 +29,8 @@ export class RestToGqlInfrastructureStack extends cdk.Stack implements IRestToGq
     private _esDomain: elasticsearch.CfnDomain;
     private _table: dynamodb.Table;
     private _functions: IRestToGqlFunctions;
-    private _auth: cognito.CfnUserPool;
-    private _authClient: cognito.CfnUserPoolClient;
+    private _auth: cognito.UserPool;
+    private _authClient: cognito.UserPoolClient;
     private _appSync: appsync.CfnGraphQLApi;
     private _orchestration: stepfunctions.StateMachine;
 

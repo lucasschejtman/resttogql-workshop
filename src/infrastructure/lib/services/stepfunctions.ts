@@ -1,8 +1,9 @@
-import * as cdk from "@aws-cdk/cdk";
+import * as cdk from "@aws-cdk/core";
 import * as stepfunctions from "@aws-cdk/aws-stepfunctions";
 import * as stepfunctionsTasks from "@aws-cdk/aws-stepfunctions-tasks";
 
 import IRestToGqlStack from "../interfaces/IRestToGqlStack";
+import { Duration } from "@aws-cdk/core";
 
 const RestToGqlOrchestration = (stack: IRestToGqlStack) => {
     const scope = (stack as unknown) as cdk.Construct;
@@ -24,7 +25,7 @@ const RestToGqlOrchestration = (stack: IRestToGqlStack) => {
 
     const state = new stepfunctions.StateMachine(scope, "StateMachine", {
         definition,
-        timeoutSec: 300
+        timeout: Duration.seconds(300)
     });
 
     new cdk.CfnOutput(scope, "state_machine_id", {
