@@ -23,8 +23,8 @@ Navigate to AppSync and go to the security section:
 1. Open up the AWS Console
 2. Go to the AppSync Service
 3. Select your API
-4. Click 'Settings' on the right hand side menu
-5. Scroll down to the 'Default Authentication Mode' section
+4. Click 'Settings' on the left hand side menu
+5. Scroll down to the 'Default Authorization Mode' section
 6. Populate the values based on your resources
 
 ![AppSync Security Link](/images/appsync-settings-link.png)

@@ -181,7 +181,7 @@ For more information on Configuring resolvers [https://docs.aws.amazon.com/appsy
 
 ### Attach the remaining resolvers
 
-Now you can add resolvers to the getCompany and listHistogram Queries.
+Now you can add resolvers to the getCompany and stockHistogram Queries.
 
 #### GetCompany Query Resolver
 

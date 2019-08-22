@@ -87,7 +87,7 @@ Once you change these methods you may have a compile errors for stockValue - you
 Hint
 
 ```tsx
-type stockResponse {
+type stockResponse = {
     stock_value: string
 }
 ```

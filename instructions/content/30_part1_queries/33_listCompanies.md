@@ -10,7 +10,7 @@ Now we are familiar with the GraphQL Schema and how we can define our Types, Res
 
 ### Why start with List Companies ?
 
-When the application starts up, it currently calls the API-Gateway endpoint `/companies`. This will pull ALL the companies and ALL of their associated data from your DynamoDB database and this over-fetching can impacts the application performance. By facading this call behind AppSync we can hide any changes to the API-Gateway from the client and control how much data is returned to the client on each call.
+When the application starts up, it currently calls the API-Gateway endpoint `/companies`. This will pull ALL the companies and ALL of their associated data from your DynamoDB database, this over-fetching can impact the application performance. By facading this call behind AppSync we can hide any changes to the API-Gateway from the client and control how much data is returned to the client on each call.
 
 ### Client Changes
 
