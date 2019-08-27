@@ -1,4 +1,4 @@
-import * as cdk from "@aws-cdk/cdk";
+import * as cdk from "@aws-cdk/core";
 import * as apigateway from "@aws-cdk/aws-apigateway";
 
 import { cors } from "../helper/api";
@@ -16,40 +16,29 @@ const RestToGqlAPI = (stack: IRestToGqlStack) => {
             stageName: API_GATEWAY_STAGE
         }
     });
-    const authorizer = new apigateway.CfnAuthorizer(scope, "RestToGqlAuthorizer", {
-        authType: apigateway.AuthorizationType.Cognito,
+    //const authorizer =
+    new apigateway.CfnAuthorizer(scope, "RestToGqlAuthorizer", {
+        authType: apigateway.AuthorizationType.COGNITO,
         providerArns: [stack.Auth.userPoolArn],
         name: "RestToGql-Authorizer",
         restApiId: api.restApiId,
         identitySource: "method.request.header.Authorization",
-        type: apigateway.AuthorizationType.Cognito
+        type: apigateway.AuthorizationType.COGNITO
     });
 
     const fns = stack.Functions;
     const companies = api.root.addResource("company");
     cors(companies);
-    companies.addMethod("GET", new apigateway.LambdaIntegration(fns["list-companies"]), {
-        authorizationType: apigateway.AuthorizationType.Cognito,
-        authorizerId: authorizer.authorizerId
-    });
+    companies.addMethod("GET", new apigateway.LambdaIntegration(fns["list-companies"]));
 
     const company = companies.addResource("{id}");
     cors(company);
-    company.addMethod("GET", new apigateway.LambdaIntegration(fns["get-company"]), {
-        authorizationType: apigateway.AuthorizationType.Cognito,
-        authorizerId: authorizer.authorizerId
-    });
+    company.addMethod("GET", new apigateway.LambdaIntegration(fns["get-company"]));
 
     const stock = company.addResource("stock");
     cors(stock);
-    stock.addMethod("GET", new apigateway.LambdaIntegration(fns["es-stock-value"]), {
-        authorizationType: apigateway.AuthorizationType.Cognito,
-        authorizerId: authorizer.authorizerId
-    });
-    stock.addMethod("PUT", new apigateway.LambdaIntegration(fns["update-stock"]), {
-        authorizationType: apigateway.AuthorizationType.Cognito,
-        authorizerId: authorizer.authorizerId
-    });
+    stock.addMethod("GET", new apigateway.LambdaIntegration(fns["es-stock-value"]));
+    stock.addMethod("PUT", new apigateway.LambdaIntegration(fns["update-stock"]));
 
     stack.API = api;
 

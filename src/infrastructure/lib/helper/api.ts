@@ -17,7 +17,7 @@ export const cors = (apiResource: apigateway.Resource) => {
                     }
                 }
             ],
-            passthroughBehavior: apigateway.PassthroughBehavior.Never,
+            passthroughBehavior: apigateway.PassthroughBehavior.NEVER,
             requestTemplates: {
                 "application/json": '{"statusCode": 200}'
             }

@@ -13,8 +13,8 @@ export default interface IRestToGqlStack {
     ESDomain: elasticsearch.CfnDomain;
     Table: dynamodb.Table;
     Functions: IRestToGqlFunctions;
-    Auth: cognito.CfnUserPool;
-    AuthClient: cognito.CfnUserPoolClient;
+    Auth: cognito.UserPool;
+    AuthClient: cognito.UserPoolClient;
     AppSync: appsync.CfnGraphQLApi;
     Orchestration: stepfunctions.StateMachine;
 }

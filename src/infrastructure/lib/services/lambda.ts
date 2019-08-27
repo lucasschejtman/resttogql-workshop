@@ -1,10 +1,11 @@
-import * as cdk from "@aws-cdk/cdk";
+import * as cdk from "@aws-cdk/core";
 import * as iam from "@aws-cdk/aws-iam";
 import * as lambda from "@aws-cdk/aws-lambda";
 import { DynamoEventSource } from "@aws-cdk/aws-lambda-event-sources";
 
 import { Function } from "../helper/functions";
 import IRestToGqlStack from "../interfaces/IRestToGqlStack";
+import { ManagedPolicy } from "@aws-cdk/aws-iam";
 
 const DDB_TABLE_NAME = process.env.DDB_TABLE_NAME || "";
 const DDB_NUM_COMPANIES_SEED = process.env.DDB_NUM_COMPANIES_SEED || "";
@@ -12,19 +13,19 @@ const DDB_NUM_COMPANIES_SEED = process.env.DDB_NUM_COMPANIES_SEED || "";
 const RestToGqlFunctions = (stack: IRestToGqlStack) => {
     const scope = (stack as unknown) as cdk.Construct;
 
-    const esEndpoint = stack.ESDomain.domainEndpoint;
+    const esEndpoint = stack.ESDomain.attrDomainEndpoint;
     const fnRole = new iam.Role(scope, "lambda_execution_role", {
         assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com"),
-        managedPolicyArns: [
-            "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
-            "arn:aws:iam::aws:policy/AmazonCognitoPowerUser"
+        managedPolicies: [
+            ManagedPolicy.fromAwsManagedPolicyName("AmazonDynamoDBFullAccess"),
+            ManagedPolicy.fromAwsManagedPolicyName("AmazonCognitoPowerUser")
         ]
     });
-    fnRole.addToPolicy(
-        new iam.PolicyStatement()
-            .addAllResources()
-            .addActions("es:ESHttpPost", "es:ESHttpPut", "es:ESHttpDelete")
-    );
+
+    const esPolicy = new iam.PolicyStatement();
+    esPolicy.addAllResources();
+    esPolicy.addActions("es:ESHttpPost", "es:ESHttpPut", "es:ESHttpDelete");
+    fnRole.addToPolicy(esPolicy);
 
     const fn = Function(scope);
 
@@ -38,7 +39,7 @@ const RestToGqlFunctions = (stack: IRestToGqlStack) => {
 
     ddbToEs.addEventSource(
         new DynamoEventSource(stack.Table, {
-            startingPosition: lambda.StartingPosition.TrimHorizon
+            startingPosition: lambda.StartingPosition.TRIM_HORIZON
         })
     );
 
