@@ -1,4 +1,4 @@
-import * as cdk from "@aws-cdk/cdk";
+import * as cdk from "@aws-cdk/core";
 import * as dynamodb from "@aws-cdk/aws-dynamodb";
 
 import IRestToGqlStack from "../interfaces/IRestToGqlStack";
@@ -10,8 +10,8 @@ const RestToGqlTable = (stack: IRestToGqlStack) => {
     const scope = (stack as unknown) as cdk.Construct;
     stack.Table = new dynamodb.Table(scope, DDB_TABLE_NAME, {
         tableName: DDB_TABLE_NAME,
-        streamSpecification: dynamodb.StreamViewType.NewAndOldImages,
-        partitionKey: { name: DDB_TABLE_PK, type: dynamodb.AttributeType.Number }
+        stream: dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
+        partitionKey: { name: DDB_TABLE_PK, type: dynamodb.AttributeType.NUMBER }
     });
 
     return stack;
