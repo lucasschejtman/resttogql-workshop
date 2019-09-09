@@ -33,7 +33,7 @@ Navigate to AppSync and open up the schema browser:
 3. Select Create API
 4. For this workshop we will build an API from scratch, so select 'Build from Scratch' radio button and select 'Start'
 5. Give your API a name 'resttogql-appsync'
-6. Select Edit Schema and let start building
+6. Select Edit Schema and let's start building
 
 {{% notice info %}}
 For more information how to build schemas see: [https://docs.aws.amazon.com/appsync/latest/devguide/designing-your-schema.html#aws-appsync-designing-your-schema](https://docs.aws.amazon.com/appsync/latest/devguide/designing-your-schema.html#aws-appsync-designing-your-schema)
@@ -41,11 +41,14 @@ For more information how to build schemas see: [https://docs.aws.amazon.com/apps
 
 ### Understanding the Schema
 
-The schema is split into a number of distinct parts, for this excercise we will concentrate on the parts that affect queries. We will address the rest of the schema in later sections of the workshop
+The schema is split into a number of distinct parts, for this excercise we will concentrate on the parts that affect queries. We will address the rest of the schema in later sections of the workshop.
+
 
 ### Types
 
 Types are GraphQL objects and define the data, GraphQL has native types and allows us to define our own. For this workshop we have modelled our domain into the Company and Stock Types shown below. Copy the following into the schemas areas to add the Company and Stock Types.
+
+__Copy the following into the Schema window - ( replace anything else that is already there )__
 
 ```tsx
 type Company {
@@ -72,6 +75,11 @@ For more information on Types [https://graphql.org/learn/schema/](https://graphq
 Queries are how GraphQL retrieves data from the data sources its connected to. It connects to these data sources via resolvers which we will create later.
 
 We have 3 queries listed here :
+1. GetCompany
+2. ListCompanies
+3. StockHistogram
+
+__Copy the Query definition below into the Schema window__
 
 ```tsx
 type Query {
@@ -90,6 +98,40 @@ schema {
 	query: Query
 }
 ```
+
+The Schema should then look like the following:
+
+```tsx
+type Company {
+	company_id: Int!
+	company_name: String
+	company_description: String
+	stock_name: String
+	stock_value: Float
+	delta: Float
+}
+
+type Stock {
+	delta: Float!
+	stock_value: Float!
+}
+
+type Query {
+	getCompany(id: Int!): Company
+	listCompanies: [Company]
+	stockHistogram(company_id: Int!, limit: Int!): [Stock]
+}
+
+schema {
+	query: Query
+}
+
+```
+
+
+
+
+
 
 **Save the schema**
 
@@ -124,6 +166,7 @@ For more information on Data sources and how to attach to resolvers [https://doc
 Fill out the resulting screen so it looks like below
 
 ![new data source](/images/create_data_source.png)
+
 
 -   Select 'Create'
 
@@ -163,7 +206,7 @@ Is mapping the request into the REST endpoint resource /company passing any para
 
 The response template is even simpler - it parses the response from the underlying datasource (API_GATEWAY) and puts it in an array of items
 
--   Copy the following into the Request Mapping field (replace everything thats there)
+-   Copy the following into the Response Mapping field (replace everything thats there)
 
 ```vtl
 $util.toJson(
@@ -200,6 +243,11 @@ If you cant find the DynamoDB Table 'resttogql-company-table' make sure you are 
 {{% /notice %}}
 
 ![DynamoDB data source](/images/dynamo_datasource.png)
+
+__Double check that the Region field contains the correct region your are deploying into__
+
+
+
 
 ##### Mapping Templates
 

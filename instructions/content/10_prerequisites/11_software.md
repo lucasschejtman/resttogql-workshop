@@ -19,7 +19,7 @@ nvm install v8.11.0
 nvm alias default v8.11.0
 
 # Install the AWS CDK
-npm install -g aws-cdk@0.34.0
+npm install -g aws-cdk
 ```
 
 {{% notice note %}}

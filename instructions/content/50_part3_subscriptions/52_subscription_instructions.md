@@ -19,6 +19,7 @@ import * as subscriptions from "./graphql/subscriptions.js";
 -   Define our subscription - Open up the newly created subscription.js file and paste the following in.
 
 ```tsx
+//subscriptions.js
 export const SubscribeToStock = `subscription SubscribeToStock {
   onStockChange {
     stock_value

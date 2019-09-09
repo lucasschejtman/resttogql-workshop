@@ -60,9 +60,25 @@ Amplify.configure({
 import * as queries from "./graphql/queries.js";
 ```
 
+-   Define our first Query - Open up the newly created queries.js file and paste the following in.
+
+```tsx
+// queries.js
+// Query that will return a list of Companies
+export const ListCompanies = `query ListCompanies {
+    listCompanies { 
+        company_id 
+        company_name
+        stock_name
+        stock_value
+    }
+}`;
+```
+
 -   StockTable.tsx - Change the call to list companies to use the GraphQL endpoint as opposed to the rest endpoint . The code is in the ComponentDIDMount function - after the change this function should look like below
 
 ```tsx
+// StockTable.tsx
 async componentDidMount() {
     const session = await Auth.currentSession();
         this.setState({
@@ -82,21 +98,8 @@ async componentDidMount() {
 -   Add graphQLOperation to our imports, this function is part of the amplify library and is the entry point for all AppSync calls. Your Amplify imports should now look like this.
 
 ```tsx
+//StockTable.jsx
 import Amplify, { API, Auth, graphqlOperation } from "aws-amplify";
-```
-
--   Define our first Query - Open up the newly created queries.js file and paste the following in.
-
-```tsx
-// Query that will return a list of Companies
-export const ListCompanies = `query ListCompanies {
-    listCompanies { 
-        company_id 
-        company_name
-        stock_name
-        stock_value
-    }
-}`;
 ```
 
 Now if you open up the application the initial loading screen while use the GraphAPI endpoint to load the list of companies.

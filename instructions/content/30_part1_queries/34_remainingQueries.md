@@ -15,6 +15,7 @@ The GetCompany Query is called from the StockDetail Page when it loads. So the f
 -   Change Imports in StockDetail Page
 
 ```tsx
+//StockDetail.tsx
 import { API, graphqlOperation, Auth } from "aws-amplify";
 import * as queries from "./graphql/queries.js";
 ```
@@ -22,7 +23,7 @@ import * as queries from "./graphql/queries.js";
 -   Change the call when the page initially loads to call the GraphQL queries instead of going directly to the REST API. We do this in the 'componentDidMount' function - it should now look like the below
 
 ```tsx
-
+//StockDetail.tsx
 async componentDidMount() {
     this.retrieveStock();
     const session = await Auth.currentSession();
@@ -44,6 +45,7 @@ async componentDidMount() {
 -   Add in the new queries to the queries.js file, so it looks like this
 
 ```tsx
+//StockDetail.tsx
 // Query that will return a Company given its ID
 export const GetCompany = `query GetCompany($id: Int!) {
     getCompany(id: $id){
@@ -64,6 +66,7 @@ export const GetHistogram = `query GetHistogram($company_id: Int!, $limit: Int!)
 -   Update the retrieveStock function so that it loads returns the stockHistory query.
 
 ```tsx
+//StockDetail.tsx
 async retrieveStock() {
         //@ts-ignore
         const { data } = await API.graphql(
@@ -87,6 +90,7 @@ Once you change these methods you may have a compile errors for stockValue - you
 Hint
 
 ```tsx
+//StockDetail.tsx
 type stockResponse = {
     stock_value: string
 }

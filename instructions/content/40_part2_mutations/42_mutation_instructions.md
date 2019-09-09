@@ -13,12 +13,27 @@ The goal of this section is to change how the Detail page loads it displayed dat
 -   In Cloud 9 create a new folder under '/src/web/src/graphql/mutations.js' We will store our queries in here. Add this as an import to StockDetails.tsx
 
 ```tsx
+//StockDetail.tsx
 import * as mutations from "./graphql/mutations.js";
 ```
+
+-   Define your mutation - Open up the newly created mutations.js file and paste the following in.
+
+```tsx
+//mutations.js
+export const UpdateCompanyStock = `mutation UpdateCompanyStock($company_id: Int!) {
+  updateCompanyStock(company_id: $company_id) {
+    delta,
+    stock_value
+  }
+}`;
+```
+
 
 -   Change the call to update stock to use the GraphQL endpoint as opposed to the rest enpoint. The code is in the onAction() function - after the change this function should look like below
 
 ```tsx
+//StockDetail.tsx
  async onAction() {
         //@ts-ignore
         const { data } = await API.graphql(
@@ -33,16 +48,6 @@ import * as mutations from "./graphql/mutations.js";
     }
 ```
 
--   Define your mutation - Open up the newly created mutations.js file and paste the following in.
-
-```tsx
-export const UpdateCompanyStock = `mutation UpdateCompanyStock($company_id: Int!) {
-  updateCompanyStock(company_id: $company_id) {
-    delta,
-    stock_value
-  }
-}`;
-```
 
 ### Testing we are using GraphQL
 
