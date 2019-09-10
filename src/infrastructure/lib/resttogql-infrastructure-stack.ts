@@ -105,7 +105,7 @@ export class RestToGqlInfrastructureStack extends cdk.Stack implements IRestToGq
     constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
-        this._region = scope.node.tryGetContext("aws:cdk:toolkit:default-region");
+        this._region = scope.node.tryGetContext("region") || process.env.AWS_REGION;
 
         const run = compose(
             RestToGqlOrchestration,
