@@ -38,7 +38,7 @@ npm run build
 cdk bootstrap
 
 # provision the application
-cdk deploy --require-approval "never"
+cdk deploy --require-approval "never" --context region=<region used for bootstraping>
 ```
 
 {{% notice warning %}}

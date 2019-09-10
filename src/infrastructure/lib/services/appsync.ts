@@ -8,7 +8,6 @@ import IRestToGqlStack from "../interfaces/IRestToGqlStack";
 import { ManagedPolicy } from "@aws-cdk/aws-iam";
 
 const BASE_DIR = "server/graphql";
-const AWS_REGION = process.env.AWS_REGION || "";
 const APPSYNC_NAME = process.env.APPSYNC_NAME || "";
 
 const gqlPath = (folder: string) => path.join("..", BASE_DIR, folder);
@@ -19,11 +18,11 @@ const requestTemplate = (resolver: string) =>
 const responseTemplate = (resolver: string) =>
     template(path.join(resolverPath, resolver, "response.vtl"));
 
-const buildApi = (scope: cdk.Construct, userPoolId: string) => {
+const buildApi = (scope: cdk.Construct, userPoolId: string, region: string) => {
     const api = new appsync.CfnGraphQLApi(scope, "RestToGqlAppSync", {
         authenticationType: "AMAZON_COGNITO_USER_POOLS",
         userPoolConfig: {
-            awsRegion: AWS_REGION,
+            awsRegion: region,
             defaultAction: "ALLOW",
             userPoolId: userPoolId
         },
@@ -64,14 +63,15 @@ const buildDDBSource = (
     scope: cdk.Construct,
     apiId: string,
     tableName: string,
-    roleArn: string
+    roleArn: string,
+    region: string
 ) => {
     const ddbSource = new appsync.CfnDataSource(scope, "DynamoDataSource", {
         apiId: apiId,
         name: "DYNAMO_DB",
         type: "AMAZON_DYNAMODB",
         dynamoDbConfig: {
-            awsRegion: AWS_REGION,
+            awsRegion: region,
             tableName: tableName
         },
         serviceRoleArn: roleArn
@@ -84,14 +84,15 @@ const buildESSource = (
     scope: cdk.Construct,
     apiId: string,
     domainEndpoint: string,
-    roleArn: string
+    roleArn: string,
+    region: string
 ) => {
     const esSource = new appsync.CfnDataSource(scope, "ESDataSource", {
         apiId: apiId,
         name: "ELASTIC_SEARCH",
         type: "AMAZON_ELASTICSEARCH",
         elasticsearchConfig: {
-            awsRegion: AWS_REGION,
+            awsRegion: region,
             endpoint: `https://${domainEndpoint}`
         },
         serviceRoleArn: roleArn
@@ -180,10 +181,11 @@ const buildLambdaResolver = (scope: cdk.Construct, apiId: string, source: appsyn
 };
 
 const RestToGqlAppSync = (stack: IRestToGqlStack) => {
+    const region = stack.Region;
     const scope = (stack as unknown) as cdk.Construct;
 
     // API
-    const api = buildApi(scope, stack.Auth.userPoolId);
+    const api = buildApi(scope, stack.Auth.userPoolId, region);
     const apiId = api.attrApiId;
 
     // Schema
@@ -191,8 +193,14 @@ const RestToGqlAppSync = (stack: IRestToGqlStack) => {
 
     // Data Sources
     const role = buildRole(scope);
-    const ddbSource = buildDDBSource(scope, apiId, stack.Table.tableName, role.roleArn);
-    const esSource = buildESSource(scope, apiId, stack.ESDomain.attrDomainEndpoint, role.roleArn);
+    const ddbSource = buildDDBSource(scope, apiId, stack.Table.tableName, role.roleArn, region);
+    const esSource = buildESSource(
+        scope,
+        apiId,
+        stack.ESDomain.attrDomainEndpoint,
+        role.roleArn,
+        region
+    );
     const httpSource = buildHTTPSource(scope, apiId, stack.API.url);
     const lambdaSource = buildLambdaSource(
         scope,

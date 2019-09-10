@@ -3,6 +3,7 @@ import * as apigateway from "@aws-cdk/aws-apigateway";
 
 import { cors } from "../helper/api";
 import IRestToGqlStack from "../interfaces/IRestToGqlStack";
+import { AuthorizationType, MethodOptions } from "@aws-cdk/aws-apigateway";
 
 const API_GATEWAY_NAME = process.env.API_GATEWAY_NAME || "";
 const API_GATEWAY_STAGE = process.env.API_GATEWAY_STAGE || "";
@@ -16,8 +17,7 @@ const RestToGqlAPI = (stack: IRestToGqlStack) => {
             stageName: API_GATEWAY_STAGE
         }
     });
-    //const authorizer =
-    new apigateway.CfnAuthorizer(scope, "RestToGqlAuthorizer", {
+    const authorizer = new apigateway.CfnAuthorizer(scope, "RestToGqlAuthorizer", {
         authType: apigateway.AuthorizationType.COGNITO,
         providerArns: [stack.Auth.userPoolArn],
         name: "RestToGql-Authorizer",
@@ -27,18 +27,24 @@ const RestToGqlAPI = (stack: IRestToGqlStack) => {
     });
 
     const fns = stack.Functions;
+    const authOpts: MethodOptions = {
+        authorizer: {
+            authorizerId: authorizer.ref
+        },
+        authorizationType: AuthorizationType.COGNITO
+    };
     const companies = api.root.addResource("company");
     cors(companies);
-    companies.addMethod("GET", new apigateway.LambdaIntegration(fns["list-companies"]));
+    companies.addMethod("GET", new apigateway.LambdaIntegration(fns["list-companies"]), authOpts);
 
     const company = companies.addResource("{id}");
     cors(company);
-    company.addMethod("GET", new apigateway.LambdaIntegration(fns["get-company"]));
+    company.addMethod("GET", new apigateway.LambdaIntegration(fns["get-company"]), authOpts);
 
     const stock = company.addResource("stock");
     cors(stock);
-    stock.addMethod("GET", new apigateway.LambdaIntegration(fns["es-stock-value"]));
-    stock.addMethod("PUT", new apigateway.LambdaIntegration(fns["update-stock"]));
+    stock.addMethod("GET", new apigateway.LambdaIntegration(fns["es-stock-value"]), authOpts);
+    stock.addMethod("PUT", new apigateway.LambdaIntegration(fns["update-stock"]), authOpts);
 
     stack.API = api;
 
