@@ -128,52 +128,56 @@ const buildLambdaSource = (scope: cdk.Construct, apiId: string, fnArn: string, r
     return lambdaSource;
 };
 
-const buildDDBResolver = (scope: cdk.Construct, apiId: string, source: appsync.CfnDataSource) => {
-    new appsync.CfnResolver(scope, "DDBResolver", {
+const buildDDBResolver = (scope: cdk.Construct, apiId: string, source: appsync.CfnDataSource, schema: appsync.CfnGraphQLSchema) => {
+    const DDBResolver = new appsync.CfnResolver(scope, "DDBResolver", {
         apiId: apiId,
-        dataSourceName: source.attrName,
+        dataSourceName: source.name,
         typeName: "Query",
         fieldName: "getCompany",
         requestMappingTemplate: requestTemplate("getCompany"),
         responseMappingTemplate: responseTemplate("getCompany")
     });
+    DDBResolver.addDependsOn(schema);
+    DDBResolver.addDependsOn(source);
 };
 
-const buildESResolver = (scope: cdk.Construct, apiId: string, source: appsync.CfnDataSource) => {
-    new appsync.CfnResolver(scope, "ESResolver", {
+const buildESResolver = (scope: cdk.Construct, apiId: string, source: appsync.CfnDataSource, schema: appsync.CfnGraphQLSchema) => {
+    const ESResolver = new appsync.CfnResolver(scope, "ESResolver", {
         apiId: apiId,
-        dataSourceName: source.attrName,
+        dataSourceName: source.name,
         typeName: "Query",
         fieldName: "stockHistogram",
         requestMappingTemplate: requestTemplate("stockHistogram"),
         responseMappingTemplate: responseTemplate("stockHistogram")
     });
+    ESResolver.addDependsOn(schema);
+    ESResolver.addDependsOn(source);
 };
 
-const buildHTTPResolver = (scope: cdk.Construct, apiId: string, source: appsync.CfnDataSource) => {
-    new appsync.CfnResolver(scope, "HTTPResolver", {
+const buildHTTPResolver = (scope: cdk.Construct, apiId: string, source: appsync.CfnDataSource, schema: appsync.CfnGraphQLSchema) => {
+    const HTTPResolver = new appsync.CfnResolver(scope, "HTTPResolver", {
         apiId: apiId,
-        dataSourceName: source.attrName,
+        dataSourceName: source.name,
         typeName: "Query",
         fieldName: "listCompanies",
         requestMappingTemplate: requestTemplate("listCompanies"),
         responseMappingTemplate: responseTemplate("listCompanies")
     });
+    HTTPResolver.addDependsOn(schema);
+    HTTPResolver.addDependsOn(source);
 };
 
-const buildLambdaResolver = (
-    scope: cdk.Construct,
-    apiId: string,
-    source: appsync.CfnDataSource
-) => {
-    new appsync.CfnResolver(scope, "LambdaResolver", {
+const buildLambdaResolver = (scope: cdk.Construct, apiId: string, source: appsync.CfnDataSource, schema: appsync.CfnGraphQLSchema) => {
+    const LambdaResolver = new appsync.CfnResolver(scope, "LambdaResolver", {
         apiId: apiId,
-        dataSourceName: source.attrName,
+        dataSourceName: source.name,
         typeName: "Mutation",
         fieldName: "updateCompanyStock",
         requestMappingTemplate: requestTemplate("updateCompanyStock"),
         responseMappingTemplate: responseTemplate("updateCompanyStock")
     });
+    LambdaResolver.addDependsOn(schema);
+    LambdaResolver.addDependsOn(source);
 };
 
 const RestToGqlAppSync = (stack: IRestToGqlStack) => {
@@ -185,7 +189,7 @@ const RestToGqlAppSync = (stack: IRestToGqlStack) => {
     const apiId = api.attrApiId;
 
     // Schema
-    buildSchema(scope, apiId);
+    const schema = buildSchema(scope, apiId);
 
     // Data Sources
     const role = buildRole(scope);
@@ -206,10 +210,10 @@ const RestToGqlAppSync = (stack: IRestToGqlStack) => {
     );
 
     // Resolvers
-    buildDDBResolver(scope, apiId, ddbSource);
-    buildESResolver(scope, apiId, esSource);
-    buildHTTPResolver(scope, apiId, httpSource);
-    buildLambdaResolver(scope, apiId, lambdaSource);
+    buildDDBResolver(scope, apiId, ddbSource, schema);
+    buildESResolver(scope, apiId, esSource, schema);
+    buildHTTPResolver(scope, apiId, httpSource, schema);
+    buildLambdaResolver(scope, apiId, lambdaSource, schema);
 
     stack.AppSync = api;
 
