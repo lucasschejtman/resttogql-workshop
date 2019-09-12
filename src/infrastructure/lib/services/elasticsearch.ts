@@ -19,6 +19,23 @@ const RestToGqlES = (stack: IRestToGqlStack) => {
         ebsOptions: {
             ebsEnabled: true,
             volumeSize: 10
+        },
+        accessPolicies: {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Principal": {
+                        "AWS": [
+                            "*"
+                        ]
+                    },
+                    "Action": [
+                        "es:*"
+                    ],
+                    "Resource": "*"
+                }
+            ]
         }
     });
 
