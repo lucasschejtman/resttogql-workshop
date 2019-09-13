@@ -47,10 +47,11 @@ Amplify.configure({
         graphql_headers: async () => ({
             Authorization: (await Auth.currentSession()).getIdToken().getJwtToken()
         }),
-        aws_appsync_region: process.env.REACT_APP_DEFAULT_REGION,
-        aws_appsync_authenticationType: "AMAZON_COGNITO_USER_POOLS",
-        aws_appsync_graphqlEndpoint: process.env.REACT_APP_APPSYNC_ENDPOINT
-    }
+        graphql_endpoint: process.env.REACT_APP_APPSYNC_ENDPOINT
+    },
+    aws_appsync_region: process.env.REACT_APP_DEFAULT_REGION,
+    aws_appsync_authenticationType: "AMAZON_COGNITO_USER_POOLS",
+    aws_appsync_graphqlEndpoint: process.env.REACT_APP_APPSYNC_ENDPOINT
 });
 ```
 
