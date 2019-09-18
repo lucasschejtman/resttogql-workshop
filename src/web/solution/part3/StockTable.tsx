@@ -16,19 +16,32 @@ import * as queries from "./graphql/queries.js";
 
 const API_NAME = "companies";
 
+// STEP 0 - BEGIN
+// Modify Amplify configure
 Amplify.configure({
     Auth: {
         region: process.env.REACT_APP_DEFAULT_REGION,
         userPoolId: process.env.REACT_APP_COGNITO_POOL_ID,
         userPoolWebClientId: process.env.REACT_APP_COGNITO_POOL_CLIENT_ID
     },
-    graphql_headers: async () => ({
-        Authorization: (await Auth.currentSession()).getIdToken().getJwtToken()
-    }),
+    API: {
+        endpoints: [
+            {
+                name: API_NAME,
+                endpoint: process.env.REACT_APP_API_ENDPOINT,
+                region: process.env.REACT_APP_DEFAULT_REGION
+            }
+        ],
+        graphql_headers: async () => ({
+            Authorization: (await Auth.currentSession()).getIdToken().getJwtToken()
+        }),
+        graphql_endpoint: process.env.REACT_APP_APPSYNC_ENDPOINT
+    },
     aws_appsync_region: process.env.REACT_APP_DEFAULT_REGION,
     aws_appsync_authenticationType: "AMAZON_COGNITO_USER_POOLS",
     aws_appsync_graphqlEndpoint: process.env.REACT_APP_APPSYNC_ENDPOINT
 });
+// STEP 0 - END
 
 const styles = (theme: any) =>
     createStyles({
@@ -56,7 +69,7 @@ type Company = {
     stock_value: number;
 };
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props extends WithStyles<typeof styles> { }
 
 interface State {
     itemData: Array<Object>;
