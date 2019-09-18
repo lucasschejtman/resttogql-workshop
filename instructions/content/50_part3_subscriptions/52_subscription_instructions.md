@@ -10,6 +10,34 @@ The goal of this section is to change how the Detail page updates its its displa
 
 ### Client Changes
 
+-   When using subscriptions, we need to move our appsync configuration to the root of the configuration object.  To do this, update the amplify configure code in `StockTable.tsx`
+
+```tsx
+Amplify.configure({
+    Auth: {
+        region: process.env.REACT_APP_DEFAULT_REGION,
+        userPoolId: process.env.REACT_APP_COGNITO_POOL_ID,
+        userPoolWebClientId: process.env.REACT_APP_COGNITO_POOL_CLIENT_ID
+    },
+    API: {
+        endpoints: [
+            {
+                name: API_NAME,
+                endpoint: process.env.REACT_APP_API_ENDPOINT,
+                region: process.env.REACT_APP_DEFAULT_REGION
+            }
+        ],
+        graphql_headers: async () => ({
+            Authorization: (await Auth.currentSession()).getIdToken().getJwtToken()
+        }),
+        graphql_endpoint: process.env.REACT_APP_APPSYNC_ENDPOINT
+    },
+    aws_appsync_region: process.env.REACT_APP_DEFAULT_REGION,
+    aws_appsync_authenticationType: "AMAZON_COGNITO_USER_POOLS",
+    aws_appsync_graphqlEndpoint: process.env.REACT_APP_APPSYNC_ENDPOINT
+});
+```
+
 -   In Cloud 9 create a new folder under '/src/web/src/graphql/subscriptions.js' We will store our queries in here. Add this as an import to StockDetails.tsx
 
 ```tsx
