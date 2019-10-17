@@ -6,5 +6,5 @@ chapter = true
 
 # Prerequisites for the Workshop
 
-{{% children showhidden="false" %}}
+{{% children %}}
 

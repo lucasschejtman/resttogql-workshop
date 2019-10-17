@@ -96,6 +96,10 @@ type stockResponse = {
 }
 ```
 
-### Testing we are using GraphQL
+### Testing we are using GraphQL and debugging
 
-You can either open the developer console on your browser and see the request to AppSync - or edit the Queries to return less data and see how the page is then rendered
+You can either:
+
+1. Open the developer console on your browser and see the request to AppSync.  GraphQL operations are wrapped in an HTTP Post so can be seen in the developer console
+
+2. Edit the Queries to return less data and see how the page is then rendered. To edit the queries simply change the queries.js file and change the queries to return the data that you need.

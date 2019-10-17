@@ -6,7 +6,10 @@ Parameters:
   AutoHibernateTimeout:
     Default: 30
     Description: How many minutes idle before shutting down the IDE
-    Type: Number
+    Type: Number 
+  Cloud9Name:
+    Default: AppSyncWorkshop
+    Type: String
 Resources:
   IDE:
     Type: AWS::Cloud9::EnvironmentEC2
@@ -20,4 +23,4 @@ Resources:
       InstanceType:
         Ref: EC2InstanceType
       Name:
-        Ref: AWS::StackName
+        Ref: Cloud9Name

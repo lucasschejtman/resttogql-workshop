@@ -1,5 +1,5 @@
 +++
-title = "Create a Cloud 9 Workspace"
+title = "Your Cloud 9 Workspace"
 chapter = false
 weight = 10
 +++
@@ -18,6 +18,21 @@ the cloud9 domain, otherwise connecting to the workspace might be impacted.
 {{% /notice %}}
 
 ### Create a new environment
+Choose the correct Tab to configure AWS Cloud for your event.
+
+{{% tabs %}}
+{{% tab "event-type-1" "Pre-provisioned Accounts" %}}
+
+<b>Choose this Tab for large organised workshops with pre-provisioned accounts</b>
+
+1. Go to the [Cloud9 web console](https://us-east-1.console.aws.amazon.com/cloud9/home?region=us-east-1)
+2. Select the enviroment called 'AppSyncWorkshop' and select 'Open IDE'
+ 
+{{% /tab %}}
+
+{{% tab  "event-type-2"  "Personal Accounts" %}}
+
+<b>Choose this Tab for small workshops or running in your own personal account</b>
 
 1. Go to the [Cloud9 web console](https://us-east-1.console.aws.amazon.com/cloud9/home?region=us-east-1)
 2. Select **Create environment**
@@ -27,9 +42,15 @@ the cloud9 domain, otherwise connecting to the workspace might be impacted.
 6. Leave all of the environment settings as they are, and go to the **Next step**
 7. Click **Create environment**
 
+{{% /tab %}}
+
+{{% /tabs %}}
+
+
+
 ### Clean up the layout
 
-When the environment comes up, customize the layout by closing the **welcome tab**
+You can customize the layout by closing the **welcome tab**
 and **lower work area**, and opening a new **terminal** tab in the main work area:
 ![c9before](/images/c9before.png)
 

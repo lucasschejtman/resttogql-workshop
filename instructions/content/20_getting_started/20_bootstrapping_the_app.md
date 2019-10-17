@@ -4,46 +4,6 @@ chapter = false
 weight = 20
 +++
 
-### Cloning the Repo
-
-Well get started by cloning the code repo of the existing application
-
-```bash
-# clone the repo
-git clone https://github.com/lucasschejtman/resttogql-workshop.git
-
-# change into the infrastructure folder
-cd resttogql-workshop/src/infrastructure/
-
-```
-
-### Deploying using the CDK
-
-Inside the infrastructure all the neccessary services have been defined in code. We now need to run the CDK inside this folder and deploy the resultant CloudFormation templates.
-
-{{% notice tip %}}
-You can learn more about the cdk at [https://github.com/awslabs/aws-cdk](https://github.com/awslabs/aws-cdk).
-{{% /notice %}}
-
-```bash
-# install modules
-npm install
-
-# build everything
-npm run build
-
-#bootstrap the cdk
-#<accNum> = account to deploy into
-#<region> = region to deploy into i.e ap-southeast-1
-cdk bootstrap
-
-# provision the application
-cdk deploy --require-approval "never" --context region=<region used for bootstraping>
-```
-
-{{% notice warning %}}
-The cdk deploy task will take around 10-12 mins to provision all the services used by the app - please be patient.
-{{% /notice %}}
 
 ### Update Connection Strings
 
@@ -51,9 +11,28 @@ Now we have our backend provisioned, we need to update the client application to
 
 We get the connection strings from the bottom of the CDK output or from the CloudFormation output tab for the created stack.
 
+{{% tabs %}}
+{{% tab "output-type-1" "CloudFormation Console" %}}
+
 This is how it looks in CloudFormation
 
 ![connection strings](/images/cdk-stack-outputs.png)
+ 
+{{% /tab %}}
+
+{{% tab  "event-type-2"  "CDK Output" %}}
+
+This is how it looks in CDK Output
+
+![connection strings](/images/connection_strings.png)
+ 
+
+
+{{% /tab %}}
+
+{{% /tabs %}}
+
+
 
 Our client was built using the Amplify libraries and React with connection strings stored in ".env" file.
 
@@ -70,7 +49,7 @@ If you cant see the file try the following to view hidden files: In the file bro
 ![viewing hidden files](/images/show_hidden_files.png)
 {{% /notice %}}
 
-Change the values, there should be placeholders in the file, these should map to the values from the CDK output shown above
+Change the values, there should be placeholders in the file, these should map to the values from the CDK output ( or CloudFormation Stack output) similar to those shown above.
 
 ```bash
 REACT_APP_DEFAULT_REGION=[Your AWS Region]
@@ -84,7 +63,7 @@ REACT_APP_APPSYNC_ENDPOINT=[Your AppSync Endpoint]
 Any time you change the .env file, then you will need to re-start the application
 {{% /notice %}}
 
-### Bootstrapping the App
+### Populating the application with mock data
 
 In this section, you can run the AWS Step Functions state machine that was created to bootstrap our application. You can see the detailed definition of it by going to the service page but at a high level it will perform three steps.
 
@@ -97,6 +76,10 @@ To execute it run the following command. You will find the ARN of the state mach
 ```bash
 aws stepfunctions start-execution --state-machine-arn <state machine arn>
 ```
+
+{{% notice tip %}}
+The 'state machine arn' value comes from the cloudformation output
+{{% /notice %}}
 
 ### Starting the App
 

@@ -99,7 +99,7 @@ schema {
 }
 ```
 
-The Schema should then look like the following:
+When your finished, the Schema should now look like the following:
 
 ```tsx
 type Company {

@@ -18,7 +18,7 @@ In this workshop, you'll change an existing app that uses REST endpoints that ar
 
 Here's a map of the services we'll use and how they'll all connect.
 
-![Stocks Worshop Application](/images/architecture/Arch1.png)
+![Stocks Worshop Application](/images/architecture/Arch1.png)]
 
 ### Our Tools
 

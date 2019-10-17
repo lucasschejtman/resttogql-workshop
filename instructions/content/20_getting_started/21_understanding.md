@@ -1,12 +1,12 @@
 +++
-title = "Understanding the application"
+title = "Understanding the application (Optional)"
 chapter = false
 weight = 30
 +++
 
 ### The login screen
 
-If you remember, as a part of the bootstrap process, you already created a user that you can use to login.
+As part of the bootstrap process, a user has already been created that you can use to login.
 
 The first screen should be presented and look like this. Use the following creadentials to authenticate (be careful, it is case sensitive).
 
@@ -79,6 +79,7 @@ This is the screen that initially presents after login.
 The call to the API to retrieve a list of companies
 
 ```tsx
+//StockTable.tsx
 async componentDidMount() {
         const session = await Auth.currentSession();
         this.setState({
@@ -101,11 +102,15 @@ This is the screen that displays the detail of each stock, which includes histor
 **Areas of Interest**
 
 ```tsx
-
+ //StockDetail.tsx
  async retrieveStock() {
-        const res = await API.get('companies', `/company/${this.state.id}/stock`, this.state.authParams);
-        const stockData = res.data.map((r: stockResponse) => ({ data: 'Today', price: Number(r._source.stockValue) }));
-        this.setState({ stockData });
+    const res = 
+    await API.get('companies', `/company/${this.state.id}/stock`, this.state.authParams);
+
+    const stockData = 
+    res.data.map((r: stockResponse) => ({ data: 'Today', price: Number(r._source.stockValue) }));
+
+    this.setState({ stockData });
     }
 ```
 

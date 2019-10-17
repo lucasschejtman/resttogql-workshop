@@ -10,7 +10,6 @@ The goal of this section is to continue to migrate our application, by focusing 
 
 You will do this in the AWS console, however this is not the only way this can be done. We can also do this using amplify.
 
-![Stocks Worshop Application](/images/architecture/Arch5.png)
 
 {{% notice info %}}
 For more information on how to build and deploy graphql schemas with amplify can be found here [https://aws-amplify.github.io/docs/js/api#using-aws-appsync](https://aws-amplify.github.io/docs/js/api#using-aws-appsync)
@@ -20,7 +19,7 @@ For more information on how to build and deploy graphql schemas with amplify can
 
 Subscriptions are a way of notify registered clients that a mutation has happened. This notification in performed using WebSockets and the architecture looks something like.
 
-![Subscriptions](/images/SubsArch.png)
+![Subscriptions](/images/architecture/Arch5.png)
 
 ### The Schema
 
