@@ -18,6 +18,7 @@ the cloud9 domain, otherwise connecting to the workspace might be impacted.
 {{% /notice %}}
 
 ### Create a new environment
+
 Choose the correct Tab to configure AWS Cloud for your event.
 
 {{% tabs %}}
@@ -27,7 +28,7 @@ Choose the correct Tab to configure AWS Cloud for your event.
 
 1. Go to the [Cloud9 web console](https://us-east-1.console.aws.amazon.com/cloud9/home?region=us-east-1)
 2. Select the enviroment called 'AppSyncWorkshop' and select 'Open IDE'
- 
+
 {{% /tab %}}
 
 {{% tab  "event-type-2"  "Personal Accounts" %}}
@@ -37,7 +38,7 @@ Choose the correct Tab to configure AWS Cloud for your event.
 1. Go to the [Cloud9 web console](https://us-east-1.console.aws.amazon.com/cloud9/home?region=us-east-1)
 2. Select **Create environment**
 3. Name it **workshop**, and go to the **Next step**
-4. Select **Create a new instance for environment (EC2)** and pick **t2.small**
+4. Select **Create a new instance for environment (EC2)** and pick **t2.medium**
 5. Select Amazon Linux as the platform
 6. Leave all of the environment settings as they are, and go to the **Next step**
 7. Click **Create environment**
@@ -45,8 +46,6 @@ Choose the correct Tab to configure AWS Cloud for your event.
 {{% /tab %}}
 
 {{% /tabs %}}
-
-
 
 ### Clean up the layout
 
