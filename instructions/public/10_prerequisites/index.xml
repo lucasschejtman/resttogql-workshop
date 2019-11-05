@@ -40,7 +40,7 @@ The Cloud9 workspace should be built by an IAM user with Administrator privilege
       <guid>http://example.org/10_prerequisites/11_software.html</guid>
       <description>Before we begin coding, there are a few things we need to install, update, and configure in the Cloud9 environment.
 Installing and updating In the Cloud9 terminal, run the following commands to install and update some software we&amp;rsquo;ll be using for this workshop:
-# Update the AWS CLI pip install --user --upgrade awscli # Install and use Node.js v8.10 (to match AWS Lambda) nvm install v8.11.0 nvm alias default v8.</description>
+# Update the AWS CLI pip install --user --upgrade awscli # Install and use Node.js v12.13.0 (to match AWS Lambda) nvm install v12.13.0 nvm alias default v12.13.</description>
     </item>
     
   </channel>
