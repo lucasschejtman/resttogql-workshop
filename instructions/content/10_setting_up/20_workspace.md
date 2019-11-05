@@ -38,7 +38,7 @@ Choose the correct Tab to configure AWS Cloud for your event.
 1. Go to the [Cloud9 web console](https://us-east-1.console.aws.amazon.com/cloud9/home?region=us-east-1)
 2. Select **Create environment**
 3. Name it **workshop**, and go to the **Next step**
-4. Select **Create a new instance for environment (EC2)** and pick **t2.medium**
+4. Select **Create a new instance for environment (EC2)** and pick **t2.medium** via "other" dropdown list.
 5. Select Amazon Linux as the platform
 6. Leave all of the environment settings as they are, and go to the **Next step**
 7. Click **Create environment**
