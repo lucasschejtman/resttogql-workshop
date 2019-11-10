@@ -1,30 +1,31 @@
-import * as cdk from "@aws-cdk/core";
-import * as elasticsearch from "@aws-cdk/aws-elasticsearch";
-import * as apigateway from "@aws-cdk/aws-apigateway";
-import * as cognito from "@aws-cdk/aws-cognito";
-import * as appsync from "@aws-cdk/aws-appsync";
-import * as dynamodb from "@aws-cdk/aws-dynamodb";
-import * as stepfunctions from "@aws-cdk/aws-stepfunctions";
-import * as dotenv from "dotenv";
+import * as cdk from '@aws-cdk/core';
+import * as elasticsearch from '@aws-cdk/aws-elasticsearch';
+import * as apigateway from '@aws-cdk/aws-apigateway';
+import * as cognito from '@aws-cdk/aws-cognito';
+import * as appsync from '@aws-cdk/aws-appsync';
+import * as dynamodb from '@aws-cdk/aws-dynamodb';
+import * as stepfunctions from '@aws-cdk/aws-stepfunctions';
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-import IRestToGqlFunctions from "./interfaces/IRestToGqlFunctions";
-import IRestToGqlStack from "./interfaces/IRestToGqlStack";
+import IRestToGqlFunctions from './interfaces/IRestToGqlFunctions';
+import IRestToGqlStack from './interfaces/IRestToGqlStack';
 
-import RestToGqlTable from "./services/dynamo";
-import RestToGqlES from "./services/elasticsearch";
-import RestToGqlFunctions from "./services/lambda";
-import RestToGqlAPI from "./services/apigateway";
-import RestToGqlAuth from "./services/cognito";
-import RestToGqlAppSync from "./services/appsync";
-import RestToGqlOrchestration from "./services/stepfunctions";
+import RestToGqlTable from './services/dynamo';
+import RestToGqlES from './services/elasticsearch';
+import RestToGqlFunctions from './services/lambda';
+import RestToGqlAPI from './services/apigateway';
+import RestToGqlAuth from './services/cognito';
+import RestToGqlAppSync from './services/appsync';
+import RestToGqlOrchestration from './services/stepfunctions';
 
 const compose = <T>(fn1: (a: T) => T, ...fns: Array<(a: T) => T>) =>
     fns.reduce((prevFn, nextFn) => value => prevFn(nextFn(value)), fn1);
 
 export class RestToGqlInfrastructureStack extends cdk.Stack implements IRestToGqlStack {
     private _api: apigateway.RestApi;
+    private _account: string;
     private _region: string;
     private _esDomain: elasticsearch.CfnDomain;
     private _table: dynamodb.Table;
@@ -33,6 +34,10 @@ export class RestToGqlInfrastructureStack extends cdk.Stack implements IRestToGq
     private _authClient: cognito.UserPoolClient;
     private _appSync: appsync.CfnGraphQLApi;
     private _orchestration: stepfunctions.StateMachine;
+
+    get Account() {
+        return this._account;
+    }
 
     get Region() {
         return this._region;
@@ -105,7 +110,8 @@ export class RestToGqlInfrastructureStack extends cdk.Stack implements IRestToGq
     constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
-        this._region = scope.node.tryGetContext("region") || process.env.AWS_REGION;
+        this._region = this.region;
+        this._account = this.account;
 
         const run = compose(
             RestToGqlOrchestration,
