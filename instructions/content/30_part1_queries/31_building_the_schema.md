@@ -8,7 +8,7 @@ weight = 1
 
 The goal of this section is to start building the GraphQL schema that will service the application.
 
-We will do this in the AWS console, however this is not the only way this can be done. We can also do this using amplify.
+We will do this in the AWS console, however this is not the only way this can be done. We can also do this using AWS Amplify.
 
 ![Stocks Worshop Application](/images/architecture/Arch2.png)
 
@@ -363,7 +363,7 @@ Response Mapping
 $array
 ```
 
--   Dont forget to SAVE your resolver !! by select 'Save Resolver' in the top right.
+-   Dont forget to SAVE your resolver !! by selecting 'Save Resolver' in the top right.
 
 ### Completed
 

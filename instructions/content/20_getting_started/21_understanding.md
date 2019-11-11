@@ -25,7 +25,10 @@ You will see another dialog to verify the user. Don't worry about it, it has alr
 Amazon Cognito lets you add user sign-up, sign-in, and access control to your web and mobile apps quickly and easily. We just made a User Pool, which is a secure user directory that will let our users sign in with the username and password pair they create during registration. Amazon Cognito (and the Amplify CLI) also supports configuring sign-in with social identity providers, such as Facebook, Google, and Amazon, and enterprise identity providers via SAML 2.0. If you'd like to learn more, we have a lot more information on the [Amazon Cognito Developer Resources page](https://aws.amazon.com/cognito/dev-resources/) as well as the [AWS Amplify Authentication documentation.](https://aws-amplify.github.io/amplify-js/media/authentication_guide#federated-identities-social-sign-in)
 {{% /notice %}}
 
-### App
+### Lets jump into the code
+Now the application is running and you can log in.  Lets open up the Cloud9 IDE and take a look at the code. The code can be found in  the directory **~/environment/resttogql-workshop/src/web/src**
+
+### App.tsx
 
 This is the entry point to the application.
 

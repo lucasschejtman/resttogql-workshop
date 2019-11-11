@@ -30,6 +30,7 @@ To get the value, you can goto the Settings page of your AppSync service
 -   Update your Amplify configure code to use this endpoint. These changes are made to StockTable.tsx. Change the Amplify Configure code to look like below - we are pulling in the Auth Header and adding the endpoint
 
 ```tsx
+//StockTable.tsx
 Amplify.configure({
     Auth: {
         region: process.env.REACT_APP_DEFAULT_REGION,
@@ -54,11 +55,7 @@ Amplify.configure({
 });
 ```
 
--   In Cloud 9 create a new folder under '/src/web/src/graphql/queries.js' We will store our queries in here. Add this as an import to Stock Table
-
-```tsx
-import * as queries from "./graphql/queries.js";
-```
+-   In Cloud 9 create a new file in a new folder with path '/src/web/src/graphql/queries.js' This is so we have a single point to store our queries. Once the file is created we will then sdd this as an import statement to StockTable.tsx
 
 -   Define our first Query - Open up the newly created queries.js file and paste the following in.
 
@@ -74,8 +71,16 @@ export const ListCompanies = `query ListCompanies {
     }
 }`;
 ```
+### StockTable.tsx 
 
--   StockTable.tsx - Change the call to list companies to use the GraphQL endpoint as opposed to the rest endpoint . The code is in the ComponentDIDMount function - after the change this function should look like below
+Import our new file.
+
+```tsx
+//StockTable.tsx
+import * as queries from "./graphql/queries.js";
+```
+
+- Change the call to list companies to use the GraphQL endpoint as opposed to the rest endpoint . The code is in the ComponentDIDMount function - after the change this function should look like below
 
 ```tsx
 // StockTable.tsx
@@ -106,4 +111,4 @@ Now if you open up the application the initial loading screen while use the Grap
 
 ### Testing we are using GraphQL
 
-You can either open the developer console on your browser and see the request to AppSync - or edit the ListCompanies Query to return less data and see how the table is then rendered
+You can either open the developer console in your favourite browser and see the request being sent to AppSync [should be able to see the POST body container the query being sent] - or edit the ListCompanies Query in the queries.js file to return less data and see how the table is then rendered

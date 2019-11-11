@@ -66,7 +66,7 @@ stockSubscription: {
 
 ```tsx
 stockSubscription: {
-    unsubscribe: () => {};
+    unsubscribe: () => {}
 }
 ```
 

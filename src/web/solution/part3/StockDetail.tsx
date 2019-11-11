@@ -86,7 +86,7 @@ class StockDetail extends Component<Props, State> {
 
         this.onAction = this.onAction.bind(this);
         this.renderChart = this.renderChart.bind(this);
-        this.retrieveHistogram = this.retrieveHistogram.bind(this);
+        this.retrieveStock = this.retrieveStock.bind(this);
         this.onSimulate = this.onSimulate.bind(this);
 
         // STEP 3 - BEGIN
@@ -115,7 +115,7 @@ class StockDetail extends Component<Props, State> {
         this.setState({
             company: newComp
         });
-        await this.retrieveHistogram();
+        await this.retrieveStock();
     }
     // STEP 5 - END
 
@@ -127,7 +127,7 @@ class StockDetail extends Component<Props, State> {
         this.setState({ company: data.getCompany });
     }
 
-    async retrieveHistogram() {
+    async retrieveStock() {
         //@ts-ignore
         const { data } = await API.graphql(
             graphqlOperation(queries.GetHistogram, {

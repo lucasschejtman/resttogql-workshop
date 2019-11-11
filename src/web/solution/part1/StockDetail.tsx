@@ -76,7 +76,7 @@ class StockDetail extends Component<Props, State> {
 
         this.onAction = this.onAction.bind(this);
         this.renderChart = this.renderChart.bind(this);
-        this.retrieveHistogram = this.retrieveHistogram.bind(this);
+        this.retrieveStock = this.retrieveStock.bind(this);
         this.startAutoRefresh = this.startAutoRefresh.bind(this);
         this.onSimulate = this.onSimulate.bind(this);
         this.stopAutoRefresh = this.stopAutoRefresh.bind(this);
@@ -85,7 +85,7 @@ class StockDetail extends Component<Props, State> {
 
     async componentDidMount() {
         // Leave this auth code until we migrate our PUT requests to AppSync
-        this.retrieveHistogram();
+        this.retrieveStock();
         const session = await Auth.currentSession();
         this.setState({
             authParams: {
@@ -105,7 +105,7 @@ class StockDetail extends Component<Props, State> {
         this.setState({ company: data.getCompany });
     }
 
-    async retrieveHistogram() {
+    async retrieveStock() {
         // STEP 3 - BEGIN
         // Fetch the stock histagram with AppSync
         //@ts-ignore
@@ -135,7 +135,7 @@ class StockDetail extends Component<Props, State> {
 
     startAutoRefresh() {
         this.setState({
-            interval: window.setInterval(this.retrieveHistogram, 3000)
+            interval: window.setInterval(this.retrieveStock, 3000)
         });
     }
 
