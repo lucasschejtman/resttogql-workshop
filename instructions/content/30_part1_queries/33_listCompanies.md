@@ -103,7 +103,7 @@ async componentDidMount() {
 -   Add graphQLOperation to our imports, this function is part of the amplify library and is the entry point for all AppSync calls. Your Amplify imports should now look like this.
 
 ```tsx
-//StockTable.jsx
+//StockTable.tsx
 import Amplify, { API, Auth, graphqlOperation } from "aws-amplify";
 ```
 

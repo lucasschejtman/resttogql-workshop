@@ -45,7 +45,7 @@ async componentDidMount() {
 -   Add in the new queries to the queries.js file, so it looks like this
 
 ```tsx
-//StockDetail.tsx
+//queries.js
 // Query that will return a Company given its ID
 export const GetCompany = `query GetCompany($id: Int!) {
     getCompany(id: $id){

@@ -13,6 +13,7 @@ The goal of this section is to change how the Detail page updates its its displa
 -   When using subscriptions, we need to move our appsync configuration to the root of the configuration object.  To do this, update the amplify configure code in `StockTable.tsx`
 
 ```tsx
+//StockTable.tsx
 Amplify.configure({
     Auth: {
         region: process.env.REACT_APP_DEFAULT_REGION,
@@ -41,6 +42,7 @@ Amplify.configure({
 -   In Cloud 9 create a new folder under '/src/web/src/graphql/subscriptions.js' We will store our queries in here. Add this as an import to StockDetails.tsx
 
 ```tsx
+//StockDetail.tsx
 import * as subscriptions from "./graphql/subscriptions.js";
 ```
 
@@ -58,6 +60,7 @@ export const SubscribeToStock = `subscription SubscribeToStock {
 -   Add a new state property to store subscription - add this as part of State interface.
 
 ```tsx
+//StockDetail.tsx
 stockSubscription: {
 }
 ```
@@ -65,6 +68,7 @@ stockSubscription: {
 -   Add the implementation of stockSubscription you just created in the interface - add this where is defines 'state ='
 
 ```tsx
+//StockDetail.tsx
 stockSubscription: {
     unsubscribe: () => {}
 }
@@ -74,6 +78,7 @@ stockSubscription: {
     Also this is where we will register the client for the aubscription and when they occur call the onStock function.
 
 ```tsx
+//StockDetail.tsx
 // Bind the function that will receive the subscription updates
 this.onStock = this.onStock.bind(this);
 // Initiate the AppSync subscription
@@ -87,6 +92,7 @@ this.state.stockSubscription = API.graphql(graphqlOperation(subscriptions.Subscr
 -   Implement the onStock function - should look like below
 
 ```tsx
+//StockDetails.tsx
     async onStock({ value }: any) {
         console.log("On Stock change: ", value.data);
         const newComp = {
@@ -103,6 +109,7 @@ this.state.stockSubscription = API.graphql(graphqlOperation(subscriptions.Subscr
 -   Finally clean up subscription and associate web socket connection when page closes in ComponentDidUnmount function. This should now look like this.
 
 ```tsx
+//StockDetails.tsx
 componentWillUnmount() {
     // Clean up the subscription connection when the component is no longer needed
     this.state.stockSubscription.unsubscribe();
