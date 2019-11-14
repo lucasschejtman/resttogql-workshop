@@ -48,7 +48,7 @@ The schema is split into a number of distinct parts, for this excercise we will 
 
 Types are GraphQL objects and define the data, GraphQL has native types and allows us to define our own. For this workshop we have modelled our domain into the Company and Stock Types shown below. Copy the following into the schemas areas to add the Company and Stock Types.
 
-__Copy the following into the Schema window - ( replace anything else that is already there )__
+__Copy the following into the Schema window - ( replace anything else that is already there - DO NOT SAVE SCHEMA YET>>  )__
 
 ```tsx
 type Company {
@@ -129,11 +129,7 @@ schema {
 ```
 
 
-
-
-
-
-**Save the schema**
+**Save the schema NOW !!!**
 
 ![save schema](/images/save_schema.png)
 
