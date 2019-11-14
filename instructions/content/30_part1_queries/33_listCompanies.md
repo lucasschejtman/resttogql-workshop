@@ -55,7 +55,7 @@ Amplify.configure({
 });
 ```
 
--   In Cloud 9 create a new file in a new folder with path '/src/web/src/graphql/queries.js' This is so we have a single point to store our queries. Once the file is created we will then sdd this as an import statement to StockTable.tsx
+-   In Cloud 9 create a new file in a new folder with path '/src/web/src/graphql/queries.js' This is so we have a single point to store our queries. Once the file is created we will then add this as an import statement to StockTable.tsx
 
 -   Define our first Query - Open up the newly created queries.js file and paste the following in.
 

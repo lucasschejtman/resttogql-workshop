@@ -6,7 +6,7 @@ weight = 3
 
 ## Our Goal
 
-The goal of this section is to change how the initial page loads. Currenly it is using the following RESTful endpoint /companies We want to change this to use oue new GraphQL schema that we looked at in the last section.
+The goal of this section is to change how the initial page loads. Currenly it is using the following RESTful endpoint / companies. We want to change this to use our new GraphQL schema that we looked at in the last section.
 
 The good news is we can add this query is such a way to be able to query the existing REST endpoint - we do this by using an HTTP Resolver.
 

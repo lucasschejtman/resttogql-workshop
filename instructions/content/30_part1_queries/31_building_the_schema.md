@@ -159,7 +159,7 @@ For more information on Data sources and how to attach to resolvers [https://doc
 
 -   Select 'Add Datasource'
 
-Fill out the resulting screen so it looks like below
+Fill out the resulting screen so it looks like below .__Dont forget to use your HTTP Endpoint - the value given below is just an example__
 
 ![new data source](/images/create_data_source.png)
 
