@@ -26,10 +26,15 @@ const RestToGqlES = (stack: IRestToGqlStack) => {
                 {
                     Effect: 'Allow',
                     Principal: {
-                        AWS: [stack.Account]
+                        AWS: '*'
                     },
                     Action: ['es:*'],
-                    Resource: `arn:aws:es:${stack.Region}:${stack.Account}:domain/${ES_DOMAIN_NAME}/*`
+                    Resource: `arn:aws:es:${stack.Region}:${stack.Account}:domain/${ES_DOMAIN_NAME}/*`,
+                    Condition: {
+                        StringLike: {
+                            'aws:PrincipalArn': `arn:aws:iam::${stack.Account}:role/service-role/appsync*`
+                        }
+                    }
                 }
             ]
         }
